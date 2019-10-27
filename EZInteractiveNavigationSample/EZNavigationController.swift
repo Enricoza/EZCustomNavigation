@@ -26,7 +26,7 @@ class EZNavigationController: UINavigationController, UIGestureRecognizerDelegat
      // Pass the selected object to the new view controller.
      }
      */
-    private var transitionCoordinatorHelper: TransitionCoordinator?
+    private var transitionCoordinatorHelper: EZTransitionCoordinator?
     private var edgeGesture: UIPanGestureRecognizer?
     
     func addCustomTransitioning() {
@@ -34,7 +34,7 @@ class EZNavigationController: UINavigationController, UIGestureRecognizerDelegat
             return
         }
         
-        let object = TransitionCoordinator()
+        let object = EZTransitionCoordinator()
         transitionCoordinatorHelper = object
         delegate = object
         let edgeSwipeGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
@@ -46,33 +46,27 @@ class EZNavigationController: UINavigationController, UIGestureRecognizerDelegat
         view.addGestureRecognizer(panGesture)
     }
     
-    // 6
     @objc func handleSwipe(_ gestureRecognizer: UIScreenEdgePanGestureRecognizer) {
         print("SWIPEEEE \(gestureRecognizer.translation(in: gestureRecognizer.view!))")
         guard let gestureRecognizerView = gestureRecognizer.view else {
-            transitionCoordinatorHelper?.interactionController = nil
             return
         }
         
         let percent = gestureRecognizer.translation(in: gestureRecognizerView).x / gestureRecognizerView.bounds.size.width
         
-        if gestureRecognizer.state == .began {
-            transitionCoordinatorHelper?.interactionController = UIPercentDrivenInteractiveTransition()
+        switch gestureRecognizer.state {
+        case .began:
+            transitionCoordinatorHelper?.onInteractiveTransitionEvent(.started)
             popViewController(animated: true)
-        } else if gestureRecognizer.state == .changed {
-            transitionCoordinatorHelper?.interactionController?.update(percent)
-        } else if gestureRecognizer.state == .ended {
-            if percent > 0.3 && gestureRecognizer.state != .cancelled {
-                transitionCoordinatorHelper?.interactionController?.finish()
-            } else {
-                transitionCoordinatorHelper?.interactionController?.cancel()
-            }
-            transitionCoordinatorHelper?.interactionController = nil
+        case .changed:
+            transitionCoordinatorHelper?.onInteractiveTransitionEvent(.updated(progress: percent))
+        case .ended where percent > 0.3:
+            transitionCoordinatorHelper?.onInteractiveTransitionEvent(.completed)
+        case .ended, .cancelled:
+            transitionCoordinatorHelper?.onInteractiveTransitionEvent(.cancelled)
+        default: ()
         }
     }
-    
-    
-    
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         if self.edgeGesture == gestureRecognizer {
