@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		152B865B23659DD50099423A /* ChildNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152B865A23659DD50099423A /* ChildNavigationController.swift */; };
 		152C39B723643CE00034C411 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152C39B623643CE00034C411 /* AppDelegate.swift */; };
 		152C39B923643CE00034C411 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152C39B823643CE00034C411 /* SceneDelegate.swift */; };
 		152C39BB23643CE00034C411 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152C39BA23643CE00034C411 /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		152B865A23659DD50099423A /* ChildNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildNavigationController.swift; sourceTree = "<group>"; };
 		152C39B323643CE00034C411 /* EZInteractiveNavigationSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EZInteractiveNavigationSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		152C39B623643CE00034C411 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		152C39B823643CE00034C411 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 				152C39CA23643E120034C411 /* EZTransitionCoordinator.swift */,
 				152C39CC23643E5B0034C411 /* EZNavigationController.swift */,
 				152C39CE2364628B0034C411 /* SecondViewController.swift */,
+				152B865A23659DD50099423A /* ChildNavigationController.swift */,
 			);
 			path = EZInteractiveNavigationSample;
 			sourceTree = "<group>";
@@ -152,6 +155,7 @@
 			files = (
 				152C39CF2364628B0034C411 /* SecondViewController.swift in Sources */,
 				152C39BB23643CE00034C411 /* ViewController.swift in Sources */,
+				152B865B23659DD50099423A /* ChildNavigationController.swift in Sources */,
 				152C39B723643CE00034C411 /* AppDelegate.swift in Sources */,
 				152C39CB23643E120034C411 /* EZTransitionCoordinator.swift in Sources */,
 				152C39CD23643E5B0034C411 /* EZNavigationController.swift in Sources */,
