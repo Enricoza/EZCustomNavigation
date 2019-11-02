@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EZCustomNavigation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

@@ -8,9 +8,9 @@
 
 import UIKit
 
-class EZNavigationController: UINavigationController, UIGestureRecognizerDelegate {
+open class EZNavigationController: UINavigationController, UIGestureRecognizerDelegate {
     
-    override func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         addCustomTransitioning()
     }

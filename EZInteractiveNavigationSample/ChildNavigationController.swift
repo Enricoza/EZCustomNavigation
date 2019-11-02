@@ -7,18 +7,15 @@
 //
 
 import UIKit
-
-
+import EZCustomNavigation
 
 
 class ChildNavigationController: EZNavigationController {
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationBar.isHidden = true
-        
-        
+
+
     }
 }

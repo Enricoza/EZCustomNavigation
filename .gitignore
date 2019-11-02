@@ -1,1 +1,4 @@
 *.xcodeproj/xcuserdata
+Pods
+EZInteractiveNavigationSample.xcworkspace/xcuserdata
+contents.xcworkspacedata
