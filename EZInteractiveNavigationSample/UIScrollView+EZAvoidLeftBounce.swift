@@ -11,23 +11,22 @@ import UIKit
 
 extension UIScrollView {
     
+    public typealias ActivationBlock = ()->(Bool)
     
-    private static let avoidleftBounceAssociation = ObjectAssociation<NSNumber>()
-    public var shouldAvoidLeftBounce: Bool {
-        get { return UIScrollView.avoidleftBounceAssociation[self]?.boolValue ?? false }
-        set { UIScrollView.avoidleftBounceAssociation[self] = NSNumber(booleanLiteral: newValue) }
+    public static var shouldAvoidLeftBounceBlock: ((UIScrollView)->(Bool))?
+    
+    
+    private static let shouldAvoidLeftBounceBlockAssociation = ObjectAssociation<ValueTypeWrapper<ActivationBlock?>>()
+    public var shouldAvoidLeftBounceBlock: (ActivationBlock)? {
+        get { return UIScrollView.shouldAvoidLeftBounceBlockAssociation[self]?.any }
+        set { UIScrollView.shouldAvoidLeftBounceBlockAssociation[self] = ValueTypeWrapper(newValue) }
     }
-    
-    private static let forceLeftBounceAssociation = ObjectAssociation<NSNumber>()
-    public var forceLeftBounceActive: Bool {
-        get { return UIScrollView.forceLeftBounceAssociation[self]?.boolValue ?? false }
-        set { UIScrollView.forceLeftBounceAssociation[self] = NSNumber(booleanLiteral: newValue) }
-    }
-    
-    static var shouldAvoidLeftBounceBlock: ((UIScrollView)->(Bool))?
     
     private func isEligibleForAvoidingLeftBounce() -> Bool {
-        return !forceLeftBounceActive && (shouldAvoidLeftBounce || UIScrollView.shouldAvoidLeftBounceBlock?(self) == true)
+        if let block = self.shouldAvoidLeftBounceBlock {
+            return block()
+        }
+        return UIScrollView.shouldAvoidLeftBounceBlock?(self) == true
     }
     
     private func isLeftBounceGesture(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -51,6 +50,3 @@ extension UIScrollView {
     }
     
 }
-
-
-

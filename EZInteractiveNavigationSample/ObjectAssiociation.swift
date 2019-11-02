@@ -26,3 +26,11 @@ final class ObjectAssociation<T: AnyObject> {
         set { objc_setAssociatedObject(index, Unmanaged.passUnretained(self).toOpaque(), newValue, policy) }
     }
 }
+
+
+final class ValueTypeWrapper<T> {
+    let any: T
+    init(_ any: T) {
+        self.any = any
+    }
+}
