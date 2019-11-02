@@ -14,13 +14,10 @@ class SecondViewController: UIViewController {
     @IBOutlet var stackViewHeight: NSLayoutConstraint!
     @IBOutlet var stackViewWidth: NSLayoutConstraint!
     @IBOutlet weak var lblScroll: UILabel!
-    @IBOutlet weak var scrollView: UIScrollView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         activateScrollConstraints(vertical: false)
-        // Do any additional setup after loading the view.
-        scrollView.shouldAvoidLeftBounce = true
         updateHorizontalText()
     }
     
@@ -42,7 +39,7 @@ class SecondViewController: UIViewController {
         lblScroll.text = """
         Horizontal Scrollable Content
         (You can pan from edge)
-        (Or from center if you are at far left)
+        (Or from center if at scroll start)
         """
     }
     

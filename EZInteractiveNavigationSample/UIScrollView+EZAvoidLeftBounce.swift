@@ -12,24 +12,40 @@ import UIKit
 extension UIScrollView {
     
     
-    private static let association = ObjectAssociation<NSNumber>()
-
+    private static let avoidleftBounceAssociation = ObjectAssociation<NSNumber>()
     public var shouldAvoidLeftBounce: Bool {
-
-        get { return UIScrollView.association[self]?.boolValue ?? false }
-        set { UIScrollView.association[self] = NSNumber(booleanLiteral: newValue) }
+        get { return UIScrollView.avoidleftBounceAssociation[self]?.boolValue ?? false }
+        set { UIScrollView.avoidleftBounceAssociation[self] = NSNumber(booleanLiteral: newValue) }
     }
     
-    open override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if shouldAvoidLeftBounce,
-            self.visibleSize.width < self.contentSize.width,
+    private static let forceLeftBounceAssociation = ObjectAssociation<NSNumber>()
+    public var forceLeftBounceActive: Bool {
+        get { return UIScrollView.forceLeftBounceAssociation[self]?.boolValue ?? false }
+        set { UIScrollView.forceLeftBounceAssociation[self] = NSNumber(booleanLiteral: newValue) }
+    }
+    
+    static var shouldAvoidLeftBounceBlock: ((UIScrollView)->(Bool))?
+    
+    private func isEligibleForAvoidingLeftBounce() -> Bool {
+        return !forceLeftBounceActive && (shouldAvoidLeftBounce || UIScrollView.shouldAvoidLeftBounceBlock?(self) == true)
+    }
+    
+    private func isLeftBounceGesture(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if frame.size.width < self.contentSize.width,
             let panGesture = gestureRecognizer as? UIPanGestureRecognizer {
             let velocity = panGesture.velocity(in: gestureRecognizer.view)
             if self.contentOffset.x == 0,
                 velocity.x > 0,
                 abs(velocity.x) > abs(velocity.y) {
-                return false
+                return true
             }
+        }
+        return false
+    }
+    
+    open override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if isEligibleForAvoidingLeftBounce() && isLeftBounceGesture(gestureRecognizer) {
+            return false
         }
         return super.gestureRecognizerShouldBegin(gestureRecognizer)
     }

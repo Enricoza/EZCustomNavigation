@@ -13,11 +13,10 @@ class EZNavigationController: UINavigationController, UIGestureRecognizerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         addCustomTransitioning()
-        // Do any additional setup after loading the view.
     }
-    
     
     deinit {
         removeCustomTransitioning()
     }
 }
+

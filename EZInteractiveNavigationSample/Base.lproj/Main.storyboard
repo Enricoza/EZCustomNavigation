@@ -115,10 +115,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mkz-zG-KMd">
-                                <rect key="frame" x="0.0" y="575" width="414" height="62.5"/>
+                                <rect key="frame" x="0.0" y="575" width="414" height="55"/>
                                 <string key="text">NON Scrollable Content
 (You can pan from center too)</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -153,10 +153,10 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="blO-Uc-thJ">
-                                        <rect key="frame" x="0.0" y="163.5" width="414" height="60"/>
+                                        <rect key="frame" x="0.0" y="166" width="414" height="55"/>
                                         <string key="text">Horizontal Scrollable Content
 (You can pan from edge)</string>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -196,7 +196,6 @@
                     <navigationItem key="navigationItem" id="UbP-Pk-zjV"/>
                     <connections>
                         <outlet property="lblScroll" destination="blO-Uc-thJ" id="Int-sN-i0l"/>
-                        <outlet property="scrollView" destination="yeI-rw-wEl" id="34V-n8-G7N"/>
                         <outlet property="stackView" destination="lgA-vV-XUh" id="b1w-xL-8lX"/>
                         <outlet property="stackViewHeight" destination="kdF-GR-bLU" id="Wzh-Hb-B4k"/>
                         <outlet property="stackViewWidth" destination="tGA-qe-MHF" id="KZv-hp-ey1"/>
