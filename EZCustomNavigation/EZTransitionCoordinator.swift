@@ -10,9 +10,6 @@ import UIKit
 
 
 
-
-
-
 final class EZTransitionCoordinator: NSObject {
     
     enum InteractiveAnimationEvent {

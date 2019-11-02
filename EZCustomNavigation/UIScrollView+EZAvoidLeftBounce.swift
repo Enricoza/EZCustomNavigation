@@ -13,7 +13,9 @@ extension UIScrollView {
     
     public typealias ActivationBlock = ()->(Bool)
     
-    public static var shouldAvoidLeftBounceBlock: ((UIScrollView)->(Bool))?
+    public static var shouldAvoidLeftBounceBlock: ((UIScrollView)->(Bool))? = { scrollView in
+        return scrollView.isDescendantOfClass(EZNavigationController.self)
+    }
     
     
     private static let shouldAvoidLeftBounceBlockAssociation = ObjectAssociation<ValueTypeWrapper<ActivationBlock?>>()
