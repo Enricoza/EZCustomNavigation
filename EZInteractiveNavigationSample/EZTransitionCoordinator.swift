@@ -13,22 +13,46 @@ import UIKit
 
 
 
-final class EZTransitionCoordinator: NSObject, UINavigationControllerDelegate {
+final class EZTransitionCoordinator: NSObject {
     
     enum InteractiveAnimationEvent {
-        case started
-        case updated(progress: CGFloat)
-        case completed
-        case cancelled
+        /// Must be called before the actual pop of the view controller
+        case willStart
+        case didUpdate(progress: CGFloat)
+        case didComplete
+        case didCancel
     }
     
     
     private let interactionController: UIPercentDrivenInteractiveTransition
     private var onGoingInteractiveTransition = false
+
     
     init(interactionController: UIPercentDrivenInteractiveTransition = UIPercentDrivenInteractiveTransition()) {
         self.interactionController = interactionController
     }
+    
+    func onInteractiveTransitionEvent(_ event: InteractiveAnimationEvent) {
+        switch event {
+        case .willStart:
+            self.onGoingInteractiveTransition = true
+        case .didUpdate(let progress):
+            self.interactionController.update(progress)
+        case .didComplete:
+            self.interactionController.finish()
+            self.onGoingInteractiveTransition = false
+        case .didCancel:
+            self.interactionController.cancel()
+            self.onGoingInteractiveTransition = false
+        }
+        
+    }
+
+}
+
+
+
+extension EZTransitionCoordinator: UINavigationControllerDelegate {
     
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         switch operation {
@@ -41,26 +65,15 @@ final class EZTransitionCoordinator: NSObject, UINavigationControllerDelegate {
         }
     }
     
-    func onInteractiveTransitionEvent(_ event: InteractiveAnimationEvent) {
-        switch event {
-        case .started:
-            onGoingInteractiveTransition = true
-        case .updated(let progress):
-            interactionController.update(progress)
-        case .completed:
-            interactionController.finish()
-            onGoingInteractiveTransition = false
-        case .cancelled:
-            interactionController.cancel()
-            onGoingInteractiveTransition = false
-        }
-        
-    }
-
     func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         guard onGoingInteractiveTransition else {
             return nil
         }
         return interactionController
     }
+    
 }
+
+
+
+
