@@ -196,6 +196,7 @@
                     <navigationItem key="navigationItem" id="UbP-Pk-zjV"/>
                     <connections>
                         <outlet property="lblScroll" destination="blO-Uc-thJ" id="Int-sN-i0l"/>
+                        <outlet property="scrollView" destination="yeI-rw-wEl" id="34V-n8-G7N"/>
                         <outlet property="stackView" destination="lgA-vV-XUh" id="b1w-xL-8lX"/>
                         <outlet property="stackViewHeight" destination="kdF-GR-bLU" id="Wzh-Hb-B4k"/>
                         <outlet property="stackViewWidth" destination="tGA-qe-MHF" id="KZv-hp-ey1"/>

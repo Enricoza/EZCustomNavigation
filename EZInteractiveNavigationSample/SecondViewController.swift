@@ -14,11 +14,14 @@ class SecondViewController: UIViewController {
     @IBOutlet var stackViewHeight: NSLayoutConstraint!
     @IBOutlet var stackViewWidth: NSLayoutConstraint!
     @IBOutlet weak var lblScroll: UILabel!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        activateScroll(vertical: false)
+        activateScrollConstraints(vertical: false)
         // Do any additional setup after loading the view.
+        scrollView.shouldAvoidLeftBounce = true
+        updateHorizontalText()
     }
     
     @IBAction func toggleStackAction(_ sender: Any) {
@@ -30,16 +33,20 @@ class SecondViewController: UIViewController {
             """
         } else {
             stackView.axis = .horizontal
-            lblScroll.text = """
-            Horizontal Scrollable Content
-            (You can pan from edge)
-            """
+            updateHorizontalText()
         }
-        
-        activateScroll(vertical: stackView.axis == .vertical)
+        activateScrollConstraints(vertical: stackView.axis == .vertical)
     }
     
-    func activateScroll(vertical: Bool) {
+    func updateHorizontalText() {
+        lblScroll.text = """
+        Horizontal Scrollable Content
+        (You can pan from edge)
+        (Or from center if you are at far left)
+        """
+    }
+    
+    func activateScrollConstraints(vertical: Bool) {
         if vertical {
             self.stackViewHeight.isActive = !vertical
             self.stackViewWidth.isActive = vertical
@@ -49,14 +56,4 @@ class SecondViewController: UIViewController {
         }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

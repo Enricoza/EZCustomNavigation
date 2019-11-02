@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		15001624236D92BF0093ECDF /* UIScrollView+EZAvoidLeftBounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15001623236D92BF0093ECDF /* UIScrollView+EZAvoidLeftBounce.swift */; };
+		15001628236DAACA0093ECDF /* ObjectAssiociation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15001627236DAACA0093ECDF /* ObjectAssiociation.swift */; };
 		152B865B23659DD50099423A /* ChildNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152B865A23659DD50099423A /* ChildNavigationController.swift */; };
 		152C39B723643CE00034C411 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152C39B623643CE00034C411 /* AppDelegate.swift */; };
 		152C39B923643CE00034C411 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152C39B823643CE00034C411 /* SceneDelegate.swift */; };
@@ -21,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		15001623236D92BF0093ECDF /* UIScrollView+EZAvoidLeftBounce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+EZAvoidLeftBounce.swift"; sourceTree = "<group>"; };
+		15001627236DAACA0093ECDF /* ObjectAssiociation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectAssiociation.swift; sourceTree = "<group>"; };
 		152B865A23659DD50099423A /* ChildNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildNavigationController.swift; sourceTree = "<group>"; };
 		152C39B323643CE00034C411 /* EZInteractiveNavigationSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EZInteractiveNavigationSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		152C39B623643CE00034C411 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -78,6 +82,8 @@
 				152C39CC23643E5B0034C411 /* EZNavigationController.swift */,
 				152C39CE2364628B0034C411 /* SecondViewController.swift */,
 				152B865A23659DD50099423A /* ChildNavigationController.swift */,
+				15001623236D92BF0093ECDF /* UIScrollView+EZAvoidLeftBounce.swift */,
+				15001627236DAACA0093ECDF /* ObjectAssiociation.swift */,
 			);
 			path = EZInteractiveNavigationSample;
 			sourceTree = "<group>";
@@ -155,8 +161,10 @@
 			files = (
 				152C39CF2364628B0034C411 /* SecondViewController.swift in Sources */,
 				152C39BB23643CE00034C411 /* ViewController.swift in Sources */,
+				15001628236DAACA0093ECDF /* ObjectAssiociation.swift in Sources */,
 				152B865B23659DD50099423A /* ChildNavigationController.swift in Sources */,
 				152C39B723643CE00034C411 /* AppDelegate.swift in Sources */,
+				15001624236D92BF0093ECDF /* UIScrollView+EZAvoidLeftBounce.swift in Sources */,
 				152C39CB23643E120034C411 /* EZTransitionCoordinator.swift in Sources */,
 				152C39CD23643E5B0034C411 /* EZNavigationController.swift in Sources */,
 				152C39D12364814E0034C411 /* EZTransitionAnimator.swift in Sources */,
