@@ -8,9 +8,14 @@ Just replace your `UINavigationController` with the `EZNavigationController` and
 
 # Features
 
-1. **Pan Gesture to pop from left screen edge**: everywhere and with priority to any other scroll (like the default `UINavigationController`)
-2. **Pan Gesture to pop from center of the screen**: where no horizontal scroll is present
-3. **Pan Gesture to pop from center of the screen**: where horizontal scroll is present, but scroll is at the start (i.e. `contentOffset.x = 0`)
+### Left screen edge Pop
+The user can always use the default `UINavigationController` like gesture from the left edge of the screen, no matter the content inside the ViewControllers embedded in the Navigation Controller.
+
+### Center screen `Pan-to-Pop` 
+In sections of the viewControllers where there is no horizontal pan gesture conflicting with our navigation controller pan gesture, the user will be able to Pan-to-pop from the center of the screen to pop view controllers like he is accustomed to in Instagram or Telegram apps.
+
+### Center screen `Pan-to-Pop` (on top of scrollViews)
+In sections of the viewControllers where there is an horizontal scrollView, the user will be able to `Pan-to-Pop` from the center of the screen if the scrollView is at the start position (far left of the content) i.e. `contentOffset.x = 0`. Otherwise the scroll will work as usual.
 
 ![GIF demo](img/demo.gif)
 
@@ -82,7 +87,7 @@ Those blocks will be called right when a scroll is happening on a scrollView and
 - If the block for a single scrollView is NOT provided, than the static one will be used.
 - If also the static one is nil (meaning that you removed the default one), then it is treated as a `false`, removing the functionality all togheter.
 
-## Custom Animation/Interaction
+## UINavigationController extension
 
 To allow customization of some behaviors, you can use the methods of the `UINavigationController` extension instead of the premade `EZNavigationController`.
 
@@ -96,6 +101,7 @@ You can do this for two reasons:
 - If for some reason you can't override some custom implementation of UINavigationController (let's say you have another library that subclasses that and you can't change it's implementation)
 - If you want to customize some animations or some interactions. So you'll need to call those methods with your custom parameters or subclasses.
 
+### Use with some other UINavigationController library
 
 For example, here is provided an example for some other library that gives you a NavigationController implementation (that derivers from `UINavigationController` and hopefully doesn't conflict with this library)
 
@@ -113,8 +119,9 @@ class MyNavigationImplementation: SomeOtherLibrariesImplementationOfUINavigation
 }
 ```
 
-And here is provided an example with some custom animator
+### Customize animations/interactions
 
+And here is provided an example with some custom animator
 
 ```
 class MyNavigationImplementation: UINavigationController {
