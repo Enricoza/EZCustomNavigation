@@ -10,7 +10,7 @@ import UIKit
 
 
 
-public final class EZTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+public final class EZPushPopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
     let presenting: Bool
     let parallaxPercent: CGFloat

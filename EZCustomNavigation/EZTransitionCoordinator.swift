@@ -27,8 +27,8 @@ open class EZTransitionCoordinator: NSObject {
     private var onGoingInteractiveTransition = false
 
     
-    public init(presentingAnimator: UIViewControllerAnimatedTransitioning = EZTransitionAnimator(presenting: true),
-                dismissingAnimator: UIViewControllerAnimatedTransitioning = EZTransitionAnimator(presenting: false),
+    public init(presentingAnimator: UIViewControllerAnimatedTransitioning = EZPushPopAnimator(presenting: true),
+                dismissingAnimator: UIViewControllerAnimatedTransitioning = EZPushPopAnimator(presenting: false),
                 interactionController: UIPercentDrivenInteractiveTransition = UIPercentDrivenInteractiveTransition()) {
         self.presentingAnimator = presentingAnimator
         self.dismissingAnimator = dismissingAnimator
