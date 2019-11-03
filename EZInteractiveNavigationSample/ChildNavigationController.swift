@@ -15,7 +15,5 @@ class ChildNavigationController: EZNavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationBar.isHidden = true
-
-
     }
 }

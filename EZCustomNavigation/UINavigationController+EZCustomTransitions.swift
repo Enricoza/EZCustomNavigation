@@ -22,17 +22,17 @@ extension UINavigationController {
     }
     
     
-    public func addCustomTransitioning() {
+    public func addCustomTransitioning(_ transitionHelper: EZNavigationControllerTransitionHelper = EZNavigationControllerTransitionHelper(), onShouldPopViewController: (()->(Bool))? = nil) {
         guard transitionCoordinatorHelper == nil else {
             return
         }
-        transitionCoordinatorHelper = EZNavigationControllerTransitionHelper()
-        delegate = transitionCoordinatorHelper?.navigationControllerDelegate
-        transitionCoordinatorHelper?.attachDismissGestures(to: self) { [weak self] () -> (Bool) in
+        transitionCoordinatorHelper = transitionHelper
+        delegate = transitionHelper.navigationControllerDelegate
+        let onShouldPopViewController = onShouldPopViewController ?? { [weak self] () -> (Bool) in
             self?.popViewController(animated: true)
             return true
         }
-        
+        transitionHelper.attachDismissGestures(to: self, onShouldPopViewController: onShouldPopViewController)
     }
     
     public func removeCustomTransitioning() {

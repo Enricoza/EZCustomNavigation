@@ -10,9 +10,9 @@ import UIKit
 
 
 
-final class EZTransitionCoordinator: NSObject {
+open class EZTransitionCoordinator: NSObject {
     
-    enum InteractiveAnimationEvent {
+    public enum InteractiveAnimationEvent {
         /// Must be called before the actual pop of the view controller
         case willStart
         case didUpdate(progress: CGFloat)
@@ -22,14 +22,20 @@ final class EZTransitionCoordinator: NSObject {
     
     
     private let interactionController: UIPercentDrivenInteractiveTransition
+    private let presentingAnimator: UIViewControllerAnimatedTransitioning
+    private let dismissingAnimator: UIViewControllerAnimatedTransitioning
     private var onGoingInteractiveTransition = false
 
     
-    init(interactionController: UIPercentDrivenInteractiveTransition = UIPercentDrivenInteractiveTransition()) {
+    public init(presentingAnimator: UIViewControllerAnimatedTransitioning = EZTransitionAnimator(presenting: true),
+                dismissingAnimator: UIViewControllerAnimatedTransitioning = EZTransitionAnimator(presenting: false),
+                interactionController: UIPercentDrivenInteractiveTransition = UIPercentDrivenInteractiveTransition()) {
+        self.presentingAnimator = presentingAnimator
+        self.dismissingAnimator = dismissingAnimator
         self.interactionController = interactionController
     }
     
-    func onInteractiveTransitionEvent(_ event: InteractiveAnimationEvent) {
+    open func onInteractiveTransitionEvent(_ event: InteractiveAnimationEvent) {
         switch event {
         case .willStart:
             self.onGoingInteractiveTransition = true
@@ -51,18 +57,18 @@ final class EZTransitionCoordinator: NSObject {
 
 extension EZTransitionCoordinator: UINavigationControllerDelegate {
     
-    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         switch operation {
         case .push:
-            return EZTransitionAnimator(presenting: true)
+            return self.presentingAnimator
         case .pop:
-            return EZTransitionAnimator(presenting: false)
+            return self.dismissingAnimator
         default:
             return nil
         }
     }
     
-    func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    public func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         guard onGoingInteractiveTransition else {
             return nil
         }
@@ -70,7 +76,5 @@ extension EZTransitionCoordinator: UINavigationControllerDelegate {
     }
     
 }
-
-
 
 

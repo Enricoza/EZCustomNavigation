@@ -10,23 +10,23 @@ import UIKit
 
 
 
-final class EZTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+public final class EZTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
     let presenting: Bool
     let parallaxPercent: CGFloat
     let duration: TimeInterval
     
-    init(presenting: Bool, parallaxPercent: CGFloat = 0.25, duration: TimeInterval? = nil) {
+    public init(presenting: Bool, parallaxPercent: CGFloat = 0.25, duration: TimeInterval? = nil) {
         self.presenting = presenting
         self.parallaxPercent = parallaxPercent
         self.duration = duration ?? TimeInterval(UINavigationController.hideShowBarDuration)
     }
 
-    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+    public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return self.duration
     }
 
-    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+    public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let fromView = transitionContext.view(forKey: .from) else { return }
         guard let toView = transitionContext.view(forKey: .to) else { return }
 

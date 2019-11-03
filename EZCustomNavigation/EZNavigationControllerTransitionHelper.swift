@@ -25,8 +25,8 @@ public final class EZNavigationControllerTransitionHelper: NSObject {
         return coordinator
     }
     
-    public override init() {
-        self.coordinator = EZTransitionCoordinator()
+    public init(transitionCoordinator: EZTransitionCoordinator = EZTransitionCoordinator()) {
+        self.coordinator = transitionCoordinator
     }
     
     public func attachDismissGestures(to navigationController: UINavigationController, onShouldPopViewController: @escaping (()->(Bool))) {
