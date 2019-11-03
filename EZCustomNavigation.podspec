@@ -8,6 +8,6 @@ Pod::Spec.new do |spec|
   spec.ios.deployment_target = '10.0'
   spec.source_files = 'EZCustomNavigation/*.{swift}'
   spec.requires_arc = true
-  spec.source 	= { :git => 'https://bitbucket.org/rtispa/rti-lab-sdk-ios.git', :tag => "v#{spec.version}" }
-  spec.homepage		= 'http://www.mediaset.it'
+  spec.source 	= { :git => 'https://github.com/Enricoza/EZCustomNavigation.git', :tag => "v#{spec.version}" }
+  spec.homepage		= 'https://github.com/Enricoza/EZCustomNavigation''
 end
