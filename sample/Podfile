@@ -8,6 +8,6 @@ target 'EZInteractiveNavigationSample' do
   # Pods for EZInteractiveNavigationSample
 
 
-  pod 'EZCustomNavigation', :path => './EZCustomNavigation.podspec'
+  pod 'EZCustomNavigation', :path => '../EZCustomNavigation.podspec'
 
 end
