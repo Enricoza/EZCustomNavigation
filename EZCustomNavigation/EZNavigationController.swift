@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class EZNavigationController: UINavigationController, UIGestureRecognizerDelegate {
+open class EZNavigationController: UINavigationController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
