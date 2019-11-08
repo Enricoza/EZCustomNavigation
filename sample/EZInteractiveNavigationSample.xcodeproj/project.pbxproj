@@ -15,7 +15,7 @@
 		152C39C023643CE10034C411 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 152C39BF23643CE10034C411 /* Assets.xcassets */; };
 		152C39C323643CE10034C411 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 152C39C123643CE10034C411 /* LaunchScreen.storyboard */; };
 		152C39CF2364628B0034C411 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152C39CE2364628B0034C411 /* SecondViewController.swift */; };
-		42C9D37BEBFF729C09896C3B /* Pods_EZInteractiveNavigationSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4135A672CC7E74027BE2E83A /* Pods_EZInteractiveNavigationSample.framework */; };
+		4EEB710AC8EB7F257A6BBD31 /* Pods_EZInteractiveNavigationSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA970015DD0777F4ADAA874E /* Pods_EZInteractiveNavigationSample.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,9 +29,9 @@
 		152C39C223643CE10034C411 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		152C39C423643CE10034C411 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		152C39CE2364628B0034C411 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
-		4135A672CC7E74027BE2E83A /* Pods_EZInteractiveNavigationSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EZInteractiveNavigationSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5629904CD9E31B222319A951 /* Pods-EZInteractiveNavigationSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EZInteractiveNavigationSample.debug.xcconfig"; path = "Target Support Files/Pods-EZInteractiveNavigationSample/Pods-EZInteractiveNavigationSample.debug.xcconfig"; sourceTree = "<group>"; };
 		B0AC974BEDD44FD51C66FA86 /* Pods-EZInteractiveNavigationSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EZInteractiveNavigationSample.release.xcconfig"; path = "Target Support Files/Pods-EZInteractiveNavigationSample/Pods-EZInteractiveNavigationSample.release.xcconfig"; sourceTree = "<group>"; };
+		FA970015DD0777F4ADAA874E /* Pods_EZInteractiveNavigationSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EZInteractiveNavigationSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,7 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42C9D37BEBFF729C09896C3B /* Pods_EZInteractiveNavigationSample.framework in Frameworks */,
+				4EEB710AC8EB7F257A6BBD31 /* Pods_EZInteractiveNavigationSample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,7 +83,7 @@
 		928789933C61CCD5D40F4C4C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4135A672CC7E74027BE2E83A /* Pods_EZInteractiveNavigationSample.framework */,
+				FA970015DD0777F4ADAA874E /* Pods_EZInteractiveNavigationSample.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -108,7 +108,7 @@
 				152C39AF23643CE00034C411 /* Sources */,
 				152C39B023643CE00034C411 /* Frameworks */,
 				152C39B123643CE00034C411 /* Resources */,
-				979C28C01665AD5A04E2B9EA /* [CP] Embed Pods Frameworks */,
+				37C3238E6DBFEB109116848D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -166,6 +166,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		37C3238E6DBFEB109116848D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EZInteractiveNavigationSample/Pods-EZInteractiveNavigationSample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EZInteractiveNavigationSample/Pods-EZInteractiveNavigationSample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EZInteractiveNavigationSample/Pods-EZInteractiveNavigationSample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		7FF1292C2EB945EEBC4FC1F2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -186,23 +203,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		979C28C01665AD5A04E2B9EA /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-EZInteractiveNavigationSample/Pods-EZInteractiveNavigationSample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-EZInteractiveNavigationSample/Pods-EZInteractiveNavigationSample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EZInteractiveNavigationSample/Pods-EZInteractiveNavigationSample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
