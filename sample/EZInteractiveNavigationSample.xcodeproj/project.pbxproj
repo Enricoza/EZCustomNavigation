@@ -15,7 +15,7 @@
 		152C39C023643CE10034C411 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 152C39BF23643CE10034C411 /* Assets.xcassets */; };
 		152C39C323643CE10034C411 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 152C39C123643CE10034C411 /* LaunchScreen.storyboard */; };
 		152C39CF2364628B0034C411 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152C39CE2364628B0034C411 /* SecondViewController.swift */; };
-		D63B3424306EC7E909AE6A7F /* libPods-EZInteractiveNavigationSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE3D65157A041A2F877A0EE /* libPods-EZInteractiveNavigationSample.a */; };
+		42C9D37BEBFF729C09896C3B /* Pods_EZInteractiveNavigationSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4135A672CC7E74027BE2E83A /* Pods_EZInteractiveNavigationSample.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,9 +29,9 @@
 		152C39C223643CE10034C411 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		152C39C423643CE10034C411 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		152C39CE2364628B0034C411 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		4135A672CC7E74027BE2E83A /* Pods_EZInteractiveNavigationSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EZInteractiveNavigationSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5629904CD9E31B222319A951 /* Pods-EZInteractiveNavigationSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EZInteractiveNavigationSample.debug.xcconfig"; path = "Target Support Files/Pods-EZInteractiveNavigationSample/Pods-EZInteractiveNavigationSample.debug.xcconfig"; sourceTree = "<group>"; };
 		B0AC974BEDD44FD51C66FA86 /* Pods-EZInteractiveNavigationSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EZInteractiveNavigationSample.release.xcconfig"; path = "Target Support Files/Pods-EZInteractiveNavigationSample/Pods-EZInteractiveNavigationSample.release.xcconfig"; sourceTree = "<group>"; };
-		CAE3D65157A041A2F877A0EE /* libPods-EZInteractiveNavigationSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EZInteractiveNavigationSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,7 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D63B3424306EC7E909AE6A7F /* libPods-EZInteractiveNavigationSample.a in Frameworks */,
+				42C9D37BEBFF729C09896C3B /* Pods_EZInteractiveNavigationSample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,7 +83,7 @@
 		928789933C61CCD5D40F4C4C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CAE3D65157A041A2F877A0EE /* libPods-EZInteractiveNavigationSample.a */,
+				4135A672CC7E74027BE2E83A /* Pods_EZInteractiveNavigationSample.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -108,6 +108,7 @@
 				152C39AF23643CE00034C411 /* Sources */,
 				152C39B023643CE00034C411 /* Frameworks */,
 				152C39B123643CE00034C411 /* Resources */,
+				979C28C01665AD5A04E2B9EA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -185,6 +186,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		979C28C01665AD5A04E2B9EA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EZInteractiveNavigationSample/Pods-EZInteractiveNavigationSample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EZInteractiveNavigationSample/Pods-EZInteractiveNavigationSample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EZInteractiveNavigationSample/Pods-EZInteractiveNavigationSample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -274,7 +292,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -328,7 +346,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -346,7 +364,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8549DS62H8;
 				INFOPLIST_FILE = EZInteractiveNavigationSample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -366,7 +384,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8549DS62H8;
 				INFOPLIST_FILE = EZInteractiveNavigationSample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
