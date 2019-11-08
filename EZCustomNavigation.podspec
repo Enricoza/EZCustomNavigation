@@ -9,5 +9,5 @@ Pod::Spec.new do |spec|
   spec.source_files = 'EZCustomNavigation/*.{swift}'
   spec.requires_arc = true
   spec.source 	= { :git => 'https://github.com/Enricoza/EZCustomNavigation.git', :tag => "v#{spec.version}" }
-  spec.homepage		= 'https://github.com/Enricoza/EZCustomNavigation''
+  spec.homepage		= 'https://github.com/Enricoza/EZCustomNavigation'
 end
