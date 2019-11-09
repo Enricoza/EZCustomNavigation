@@ -36,9 +36,13 @@ extension UINavigationController {
     }
     
     public func removeCustomTransitioning() {
-        delegate = nil
-        transitionCoordinatorHelper?.detachDismissGestures()
-        transitionCoordinatorHelper = nil
+        if let helper = transitionCoordinatorHelper {
+            if delegate === helper.navigationControllerDelegate {
+                delegate = nil
+            }
+            helper.detachDismissGestures()
+            transitionCoordinatorHelper = nil
+        }
     }
     
     
