@@ -6,6 +6,7 @@ Pod::Spec.new do |spec|
   spec.license      = { :type => 'MIT', :file => 'LICENSE.txt' }
   spec.platform = :ios
   spec.ios.deployment_target = '10.0'
+  spec.swift_version = '5.0'
   spec.source_files = 'EZCustomNavigation/*.{swift}'
   spec.requires_arc = true
   spec.source 	= { :git => 'https://github.com/Enricoza/EZCustomNavigation.git', :tag => "v#{spec.version}" }
