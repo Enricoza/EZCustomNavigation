@@ -45,7 +45,7 @@ extension UIScrollView {
     }
     
     open override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if isEligibleForAvoidingLeftBounce() && isLeftBounceGesture(gestureRecognizer) {
+        if isLeftBounceGesture(gestureRecognizer) && isEligibleForAvoidingLeftBounce() {
             return false
         }
         return super.gestureRecognizerShouldBegin(gestureRecognizer)
