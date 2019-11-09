@@ -8,7 +8,9 @@
 
 import UIKit
 
-
+/**
+ * An helper class that attaches gestures to the navigation controller view instance and handles the gestures actions and delegates to then inform a coordinator instance about interaction events.
+ */
 public final class EZNavigationControllerTransitionHelper: NSObject {
     
     
@@ -21,14 +23,28 @@ public final class EZNavigationControllerTransitionHelper: NSObject {
             detachDismissGestures(from: oldValue)
         }
     }
+    
+    
+    /**
+     * The delegate provided for the navigation controller
+     */
     public var navigationControllerDelegate: UINavigationControllerDelegate {
         return coordinator
     }
     
+    /**
+     * Creates a TransitionHelper with a coordinator
+     */
     public init(transitionCoordinator: EZTransitionCoordinator = EZTransitionCoordinator()) {
         self.coordinator = transitionCoordinator
     }
     
+    /**
+     * Attaches the gesture to the navigation controller and asks to the callback if a pop action can be initialized.
+     *
+     * - parameter navigationController: The navigationController to which every gesture can be attached
+     * - parameter onShouldPopViewController: The callback that informs that a pop should happen. If the navigationController actually pops the view controller it must return true to inform the helper of the ongoing pop action.
+     */
     public func attachDismissGestures(to navigationController: UINavigationController, onShouldPopViewController: @escaping (()->(Bool))) {
         guard let view = navigationController.view else {
             return
@@ -45,6 +61,9 @@ public final class EZNavigationControllerTransitionHelper: NSObject {
         view.addGestureRecognizer(panGesture)
     }
     
+    /**
+     * Detaches all the gestures from the navigation controllers view
+     */
     public func detachDismissGestures() {
         detachDismissGestures(from: navigationControllerView)
     }
@@ -87,6 +106,9 @@ public final class EZNavigationControllerTransitionHelper: NSObject {
 
 extension EZNavigationControllerTransitionHelper: UIGestureRecognizerDelegate {
     
+    /**
+     * Force the edge gesture to be prioritized 
+     */
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         if self.edgeGesture == gestureRecognizer {
             return true

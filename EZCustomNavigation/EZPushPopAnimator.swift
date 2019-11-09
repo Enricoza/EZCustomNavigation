@@ -9,23 +9,38 @@
 import UIKit
 
 
-
+/**
+ * A simple custom implementation of the default animation of a navigation controller
+ */
 public final class EZPushPopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
     let presenting: Bool
     let parallaxPercent: CGFloat
     let duration: TimeInterval
     
+    /**
+     * Creates the animator
+     *
+     * - parameter presenting: If this animator handles presenting or dismissing animations
+     * - parameter parallaxPercent: The percentage of the parallax effect to the back view controller. 0 means it's still, 1 means it moves side by side with the top one. Defaults to 0.25
+     * - parameter duration: The duration of the animation. Default to `UINavigationController.hideShowBarDuration`
+     */
     public init(presenting: Bool, parallaxPercent: CGFloat = 0.25, duration: TimeInterval? = nil) {
         self.presenting = presenting
         self.parallaxPercent = parallaxPercent
         self.duration = duration ?? TimeInterval(UINavigationController.hideShowBarDuration)
     }
 
+    /**
+     * Returns the duration of the transition
+     */
     public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return self.duration
     }
 
+    /**
+     * Animates the transition between the two view controllers
+     */
     public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let fromView = transitionContext.view(forKey: .from) else { return }
         guard let toView = transitionContext.view(forKey: .to) else { return }

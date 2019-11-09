@@ -21,7 +21,12 @@ extension UINavigationController {
         set { UINavigationController.association[self] =  newValue}
     }
     
-    
+    /**
+     * Add custom transitioning to this navigation controller.
+     *
+     * - parameter transitionHelper: The helper class that adds gesture to this navigation controller and informs It's coordinator of interaction events
+     * - parameter onShouldPopViewController: A block called when the helper class wants to pop the view controller. You should pop the view controller when this method is called and, if you do, you must return true
+     */
     public func addCustomTransitioning(_ transitionHelper: EZNavigationControllerTransitionHelper = EZNavigationControllerTransitionHelper(), onShouldPopViewController: (()->(Bool))? = nil) {
         guard transitionCoordinatorHelper == nil else {
             return
@@ -35,6 +40,9 @@ extension UINavigationController {
         transitionHelper.attachDismissGestures(to: self, onShouldPopViewController: onShouldPopViewController)
     }
     
+    /**
+     * Reset the navigation controller to the default state prior to addCustomTransitioning call
+     */
     public func removeCustomTransitioning() {
         if let helper = transitionCoordinatorHelper {
             if delegate === helper.navigationControllerDelegate {

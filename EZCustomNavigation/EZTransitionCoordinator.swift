@@ -9,14 +9,22 @@
 import UIKit
 
 
-
+/**
+ * Coordinates animators and interactors
+ */
 open class EZTransitionCoordinator: NSObject {
     
-    public enum InteractiveAnimationEvent {
+    /**
+     * Events of an interactive transition
+     */
+    public enum InteractiveTransitionEvent {
         /// Must be called before the actual pop of the view controller
         case willStart
+        /// On percent update
         case didUpdate(progress: CGFloat)
+        /// On transition complete
         case didComplete
+        /// On transition cancel
         case didCancel
     }
     
@@ -35,7 +43,7 @@ open class EZTransitionCoordinator: NSObject {
         self.interactionController = interactionController
     }
     
-    open func onInteractiveTransitionEvent(_ event: InteractiveAnimationEvent) {
+    open func onInteractiveTransitionEvent(_ event: InteractiveTransitionEvent) {
         switch event {
         case .willStart:
             self.onGoingInteractiveTransition = true
@@ -54,7 +62,9 @@ open class EZTransitionCoordinator: NSObject {
 }
 
 
-
+/**
+ * Offers default NavigationController delegate implementation according to it's state
+ */
 extension EZTransitionCoordinator: UINavigationControllerDelegate {
     
     public func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
