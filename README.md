@@ -22,7 +22,13 @@ In sections of the viewControllers where there is an horizontal scrollView, the 
 
 # Installation
 
-Cocoapods installation coming soon
+## Cocoapods
+
+Just add the `EZCustomNavigation` dependency with the version you want in the podfile:
+
+```
+pod 'EZCustomNavigation', '1.0.0'
+```
 
 # Usage
 
