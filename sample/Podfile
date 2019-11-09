@@ -8,6 +8,9 @@ target 'EZInteractiveNavigationSample' do
   # Pods for EZInteractiveNavigationSample
 
 
-  pod 'EZCustomNavigation', :path => '../EZCustomNavigation.podspec'
-
+  if current_branch == 'master'
+    pod 'EZCustomNavigation', '1.0.0'
+    else
+    pod 'EZCustomNavigation', :path => '../EZCustomNavigation.podspec'
+  end
 end
