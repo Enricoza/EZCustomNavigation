@@ -8,17 +8,58 @@
 
 import UIKit
 
+public struct UnpopConfiguration {
+    let ttl: Int? = nil
+    let stackDepth: Int = 3
+    
+    public init() {}
+}
 
-
+class UnpopStack {
+    
+    let config: UnpopConfiguration
+    private var stack: [UIViewController] = []
+    var count: Int {
+        return stack.count
+    }
+    
+    init(config: UnpopConfiguration) {
+        self.config = config
+    }
+    
+    func push(_ vc: UIViewController) {
+        if stack.count >= config.stackDepth {
+            stack.removeFirst()
+        }
+        stack.append(vc)
+        print("Added new vc", vc, count)
+    }
+    
+    func pop() -> UIViewController {
+        print("Removed a vc")
+        return stack.removeLast()
+    }
+    
+    func clear() {
+        stack.removeAll()
+    }
+    
+    
+}
 
 extension UINavigationController {
     
     
-    private static let association = ObjectAssociation<EZNavigationControllerTransitionHelper>()
+    private static let transitionHelperAssociation = ObjectAssociation<EZNavigationControllerTransitionHelper>()
     private var transitionCoordinatorHelper: EZNavigationControllerTransitionHelper? {
-
-        get { return UINavigationController.association[self] }
-        set { UINavigationController.association[self] =  newValue}
+        get { return UINavigationController.transitionHelperAssociation[self] }
+        set { UINavigationController.transitionHelperAssociation[self] = newValue }
+    }
+    
+    private static let unpopStackAssociation = ObjectAssociation<UnpopStack>()
+    private var unpopStack: UnpopStack? {
+        get { return UINavigationController.unpopStackAssociation[self] }
+        set { UINavigationController.unpopStackAssociation[self] = newValue }
     }
     
     /**
@@ -27,7 +68,9 @@ extension UINavigationController {
      * - parameter transitionHelper: The helper class that adds gesture to this navigation controller and informs It's coordinator of interaction events
      * - parameter onShouldPopViewController: A block called when the helper class wants to pop the view controller. You should pop the view controller when this method is called and, if you do, you must return true
      */
-    public func addCustomTransitioning(_ transitionHelper: EZNavigationControllerTransitionHelper = EZNavigationControllerTransitionHelper(), onShouldPopViewController: (()->(Bool))? = nil) {
+    public func addCustomTransitioning(_ transitionHelper: EZNavigationControllerTransitionHelper = EZNavigationControllerTransitionHelper(),
+                                       unpopConfiguration: UnpopConfiguration? = UnpopConfiguration(),
+                                       onShouldPopViewController: (()->(Bool))? = nil) {
         guard transitionCoordinatorHelper == nil else {
             return
         }
@@ -38,6 +81,20 @@ extension UINavigationController {
             return true
         }
         transitionHelper.attachDismissGestures(to: self, onShouldPopViewController: onShouldPopViewController)
+        
+        guard let unpopConfig = unpopConfiguration else {
+            return
+        }
+        UINavigationController.classInit
+        self.unpopStack = UnpopStack(config: unpopConfig)
+        let onShouldUnpopViewController = { [weak self] () -> (Bool) in
+            guard let canUnpop = self?.canUnpop(), canUnpop else {
+                return false
+            }
+            self?.unpop()
+            return true
+        }
+        transitionHelper.attachUnpopGesture(to: self, onShouldUnpopViewController: onShouldUnpopViewController)
     }
     
     /**
@@ -49,9 +106,81 @@ extension UINavigationController {
                 delegate = nil
             }
             helper.detachDismissGestures()
+            helper.detachUnpopGesture()
             transitionCoordinatorHelper = nil
         }
     }
     
+    private func canUnpop() -> Bool {
+        return self.unpopStack?.count ?? 0 > 0
+    }
+    
+    private func unpop() {
+        guard let vc = self.unpopStack?.pop() else {
+            return
+        }
+        
+        self.swizzled_pushViewController(vc, animated: true)
+        
+        onAnimationCompletion { (success) in
+            if !success {
+                self.unpopStack?.push(vc)
+            }
+        }
+    }
+    
+    func onAnimationCompletion(completion: @escaping (Bool)->()) {
+        guard let coordinator = transitionCoordinator else {
+            return
+        }
+        coordinator.animate(alongsideTransition: nil) { context in
+            completion(!context.isCancelled)
+        }
+    }
+}
+
+private let swizzling: (AnyClass, Selector, Selector) -> () = { forClass, originalSelector, swizzledSelector in
+    guard
+        let originalMethod = class_getInstanceMethod(forClass, originalSelector),
+        let swizzledMethod = class_getInstanceMethod(forClass, swizzledSelector)
+    else { return }
+    method_exchangeImplementations(originalMethod, swizzledMethod)
+}
+
+extension UINavigationController {
+    
+    static let classInit: Void = {
+        UINavigationController.swizzlePush()
+        UINavigationController.swizzlePop()
+    }()
+    
+    private static func swizzlePush() {
+        let originalSelector = #selector(pushViewController(_:animated:))
+        let swizzledSelector = #selector(swizzled_pushViewController(_:animated:))
+        swizzling(UINavigationController.self, originalSelector, swizzledSelector)
+    }
+    
+    private static func swizzlePop() {
+        let originalSelector = #selector(popViewController(animated:))
+        let swizzledSelector = #selector(swizzled_popViewController(animated:))
+        swizzling(UINavigationController.self, originalSelector, swizzledSelector)
+    }
+    
+    @objc func swizzled_pushViewController(_ viewController: UIViewController, animated: Bool) {
+        swizzled_pushViewController(viewController, animated: animated)
+        unpopStack?.clear()
+    }
+    @objc func swizzled_popViewController(animated: Bool) -> UIViewController? {
+        guard let vc = self.swizzled_popViewController(animated: animated) else {
+            return nil
+        }
+        onAnimationCompletion { (success) in
+            if (success) {
+                self.unpopStack?.push(vc)
+            }
+        }
+        
+        return vc
+    }
     
 }

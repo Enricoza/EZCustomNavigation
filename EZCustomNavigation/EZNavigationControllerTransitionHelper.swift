@@ -15,12 +15,19 @@ public final class EZNavigationControllerTransitionHelper: NSObject {
     
     
     private let coordinator: EZTransitionCoordinator
-    private var edgeGesture: UIScreenEdgePanGestureRecognizer?
+    private var popGesture: UIScreenEdgePanGestureRecognizer?
     private var panGesture: UIPanGestureRecognizer?
+    private var unpopGesture: UIScreenEdgePanGestureRecognizer?
     private var onShouldPopViewController: (()->(Bool))?
-    private weak var navigationControllerView: UIView? {
+    private var onShouldUnpopViewController: (()->(Bool))?
+    private weak var dismissGestureView: UIView? {
         didSet {
             detachDismissGestures(from: oldValue)
+        }
+    }
+    private weak var unpopGestureView: UIView? {
+        didSet {
+            detachUnpopGesture(from: oldValue)
         }
     }
     
@@ -49,29 +56,46 @@ public final class EZNavigationControllerTransitionHelper: NSObject {
         guard let view = navigationController.view else {
             return
         }
-        self.navigationControllerView = view
+        self.dismissGestureView = view
         self.onShouldPopViewController = onShouldPopViewController
-        let edgeSwipeGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+        let edgeSwipeGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handlePopSwipe(_:)))
         edgeSwipeGestureRecognizer.edges = .left
         view.addGestureRecognizer(edgeSwipeGestureRecognizer)
         edgeSwipeGestureRecognizer.delegate = self
-        self.edgeGesture = edgeSwipeGestureRecognizer
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+        self.popGesture = edgeSwipeGestureRecognizer
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePopSwipe(_:)))
         self.panGesture = panGesture
         view.addGestureRecognizer(panGesture)
+    }
+    
+    public func attachUnpopGesture(to navigationController: UINavigationController, onShouldUnpopViewController: @escaping (()->(Bool))) {
+        guard let view = navigationController.view else {
+            return
+        }
+        self.unpopGestureView = view
+        self.onShouldUnpopViewController = onShouldUnpopViewController
+        let rightEdgeSwipeGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleUnpopSwipe(_:)))
+        rightEdgeSwipeGestureRecognizer.edges = .right
+        view.addGestureRecognizer(rightEdgeSwipeGestureRecognizer)
+        rightEdgeSwipeGestureRecognizer.delegate = self
+        self.unpopGesture = rightEdgeSwipeGestureRecognizer
     }
     
     /**
      * Detaches all the gestures from the navigation controllers view
      */
     public func detachDismissGestures() {
-        detachDismissGestures(from: navigationControllerView)
+        dismissGestureView = nil
+    }
+    
+    public func detachUnpopGesture() {
+        unpopGestureView = nil
     }
     
     private func detachDismissGestures(from view: UIView?) {
-        if let edgeGesture = self.edgeGesture {
+        if let edgeGesture = self.popGesture {
             view?.removeGestureRecognizer(edgeGesture)
-            self.edgeGesture = nil
+            self.popGesture = nil
         }
         if let panGesture = self.panGesture {
             view?.removeGestureRecognizer(panGesture)
@@ -80,7 +104,15 @@ public final class EZNavigationControllerTransitionHelper: NSObject {
         self.onShouldPopViewController = nil
     }
     
-    @objc private func handleSwipe(_ gestureRecognizer: UIScreenEdgePanGestureRecognizer) {
+    private func detachUnpopGesture(from view: UIView?) {
+        if let unpopGesture = self.unpopGesture {
+            view?.removeGestureRecognizer(unpopGesture)
+            self.unpopGesture = nil
+        }
+        self.onShouldUnpopViewController = nil
+    }
+    
+    @objc private func handlePopSwipe(_ gestureRecognizer: UIScreenEdgePanGestureRecognizer) {
         guard let gestureRecognizerView = gestureRecognizer.view else {
             return
         }
@@ -102,6 +134,29 @@ public final class EZNavigationControllerTransitionHelper: NSObject {
         default: ()
         }
     }
+    
+    @objc private func handleUnpopSwipe(_ gestureRecognizer: UIScreenEdgePanGestureRecognizer) {
+        guard let gestureRecognizerView = gestureRecognizer.view else {
+            return
+        }
+        
+        let percent = -gestureRecognizer.translation(in: gestureRecognizerView).x / gestureRecognizerView.bounds.size.width
+        
+        switch gestureRecognizer.state {
+        case .began:
+            self.coordinator.onInteractiveTransitionEvent(.willStart)
+            if self.onShouldUnpopViewController?() == false {
+                self.coordinator.onInteractiveTransitionEvent(.didCancel)
+            }
+        case .changed:
+            self.coordinator.onInteractiveTransitionEvent(.didUpdate(progress: percent))
+        case .ended where percent > 0.3:
+            self.coordinator.onInteractiveTransitionEvent(.didComplete)
+        case .ended, .cancelled:
+            self.coordinator.onInteractiveTransitionEvent(.didCancel)
+        default: ()
+        }
+    }
 }
 
 extension EZNavigationControllerTransitionHelper: UIGestureRecognizerDelegate {
@@ -110,7 +165,7 @@ extension EZNavigationControllerTransitionHelper: UIGestureRecognizerDelegate {
      * Force the edge gesture to be prioritized 
      */
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if self.edgeGesture == gestureRecognizer {
+        if self.popGesture == gestureRecognizer || self.unpopGesture == gestureRecognizer {
             return true
         }
         return false
