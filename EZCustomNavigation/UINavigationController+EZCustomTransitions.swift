@@ -8,45 +8,6 @@
 
 import UIKit
 
-public struct UnpopConfiguration {
-    let ttl: Int? = nil
-    let stackDepth: Int = 3
-    
-    public init() {}
-}
-
-class UnpopStack {
-    
-    let config: UnpopConfiguration
-    private var stack: [UIViewController] = []
-    var count: Int {
-        return stack.count
-    }
-    
-    init(config: UnpopConfiguration) {
-        self.config = config
-    }
-    
-    func push(_ vc: UIViewController) {
-        if stack.count >= config.stackDepth {
-            stack.removeFirst()
-        }
-        stack.append(vc)
-        print("Added new vc", vc, count)
-    }
-    
-    func pop() -> UIViewController {
-        print("Removed a vc")
-        return stack.removeLast()
-    }
-    
-    func clear() {
-        stack.removeAll()
-    }
-    
-    
-}
-
 extension UINavigationController {
     
     
@@ -69,7 +30,7 @@ extension UINavigationController {
      * - parameter onShouldPopViewController: A block called when the helper class wants to pop the view controller. You should pop the view controller when this method is called and, if you do, you must return true
      */
     public func addCustomTransitioning(_ transitionHelper: EZNavigationControllerTransitionHelper = EZNavigationControllerTransitionHelper(),
-                                       unpopConfiguration: UnpopConfiguration? = UnpopConfiguration(),
+                                       unpopConfiguration: EZUnpopConfiguration? = EZUnpopConfiguration(),
                                        onShouldPopViewController: (()->(Bool))? = nil) {
         guard transitionCoordinatorHelper == nil else {
             return
