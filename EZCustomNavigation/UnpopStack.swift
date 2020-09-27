@@ -29,16 +29,16 @@ class UnpopStack {
     }
     
     func push(_ vc: UIViewController) {
+        debouncer?.call()
         if stack.count >= config.stackDepth {
             stack.removeFirst()
         }
-        debouncer?.call()
         stack.append(vc)
     }
     
-    func pop() -> UIViewController {
+    func pop() -> UIViewController? {
         debouncer?.call()
-        return stack.removeLast()
+        return stack.popLast()
     }
     
     func clear() {
