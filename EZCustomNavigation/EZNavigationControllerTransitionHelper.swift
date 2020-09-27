@@ -13,13 +13,12 @@ import UIKit
  */
 public final class EZNavigationControllerTransitionHelper: NSObject {
     
-    
-    private let coordinator: EZTransitionCoordinator
+    let coordinator: EZTransitionCoordinator
     private var popGesture: UIScreenEdgePanGestureRecognizer?
     private var panGesture: UIPanGestureRecognizer?
     private var unpopGesture: UIScreenEdgePanGestureRecognizer?
-    private var onShouldPopViewController: (()->(Bool))?
-    private var onShouldUnpopViewController: (()->(Bool))?
+    private(set) var onShouldPopViewController: (()->(Bool))?
+    private(set) var onShouldUnpopViewController: (()->(Bool))?
     private weak var dismissGestureView: UIView? {
         didSet {
             detachDismissGestures(from: oldValue)
@@ -30,7 +29,6 @@ public final class EZNavigationControllerTransitionHelper: NSObject {
             detachUnpopGesture(from: oldValue)
         }
     }
-    
     
     /**
      * The delegate provided for the navigation controller
@@ -110,52 +108,6 @@ public final class EZNavigationControllerTransitionHelper: NSObject {
             self.unpopGesture = nil
         }
         self.onShouldUnpopViewController = nil
-    }
-    
-    @objc private func handlePopSwipe(_ gestureRecognizer: UIScreenEdgePanGestureRecognizer) {
-        guard let gestureRecognizerView = gestureRecognizer.view else {
-            return
-        }
-        
-        let percent = gestureRecognizer.translation(in: gestureRecognizerView).x / gestureRecognizerView.bounds.size.width
-        
-        switch gestureRecognizer.state {
-        case .began:
-            self.coordinator.onInteractiveTransitionEvent(.willStart)
-            if self.onShouldPopViewController?() == false {
-                self.coordinator.onInteractiveTransitionEvent(.didCancel)
-            }
-        case .changed:
-            self.coordinator.onInteractiveTransitionEvent(.didUpdate(progress: percent))
-        case .ended where percent > 0.3:
-            self.coordinator.onInteractiveTransitionEvent(.didComplete)
-        case .ended, .cancelled:
-            self.coordinator.onInteractiveTransitionEvent(.didCancel)
-        default: ()
-        }
-    }
-    
-    @objc private func handleUnpopSwipe(_ gestureRecognizer: UIScreenEdgePanGestureRecognizer) {
-        guard let gestureRecognizerView = gestureRecognizer.view else {
-            return
-        }
-        
-        let percent = -gestureRecognizer.translation(in: gestureRecognizerView).x / gestureRecognizerView.bounds.size.width
-        
-        switch gestureRecognizer.state {
-        case .began:
-            self.coordinator.onInteractiveTransitionEvent(.willStart)
-            if self.onShouldUnpopViewController?() == false {
-                self.coordinator.onInteractiveTransitionEvent(.didCancel)
-            }
-        case .changed:
-            self.coordinator.onInteractiveTransitionEvent(.didUpdate(progress: percent))
-        case .ended where percent > 0.3:
-            self.coordinator.onInteractiveTransitionEvent(.didComplete)
-        case .ended, .cancelled:
-            self.coordinator.onInteractiveTransitionEvent(.didCancel)
-        default: ()
-        }
     }
 }
 
