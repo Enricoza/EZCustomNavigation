@@ -68,6 +68,7 @@ extension UINavigationController {
             helper.detachDismissGestures()
             helper.detachUnpopGesture()
             transitionCoordinatorHelper = nil
+            unpopStack = nil
         }
     }
     
