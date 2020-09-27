@@ -29,7 +29,7 @@ public final class EZNavigationControllerTransitionHelper: NSObject {
             detachUnpopGesture(from: oldValue)
         }
     }
-    
+    let configuration: EZNavigationConfiguration
     /**
      * The delegate provided for the navigation controller
      */
@@ -40,8 +40,9 @@ public final class EZNavigationControllerTransitionHelper: NSObject {
     /**
      * Creates a TransitionHelper with a coordinator
      */
-    public init(transitionCoordinator: EZTransitionCoordinator = EZTransitionCoordinator()) {
+    public init(transitionCoordinator: EZTransitionCoordinator = EZTransitionCoordinator(), configuration: EZNavigationConfiguration = EZNavigationConfiguration()) {
         self.coordinator = transitionCoordinator
+        self.configuration = configuration
     }
     
     /**

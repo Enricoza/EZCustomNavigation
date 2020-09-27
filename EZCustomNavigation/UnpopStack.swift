@@ -7,16 +7,6 @@
 
 import Foundation
 
-public struct EZUnpopConfiguration {
-    let ttl: TimeInterval?
-    let stackDepth: Int
-    
-    public init(ttl: TimeInterval? = nil, stackDepth: Int = 3) {
-        self.ttl = ttl
-        self.stackDepth = stackDepth
-    }
-}
-
 class UnpopStack {
     
     let config: EZUnpopConfiguration

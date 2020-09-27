@@ -30,7 +30,6 @@ extension UINavigationController {
      * - parameter onShouldPopViewController: A block called when the helper class wants to pop the view controller. You should pop the view controller when this method is called and, if you do, you must return true
      */
     public func addCustomTransitioning(_ transitionHelper: EZNavigationControllerTransitionHelper = EZNavigationControllerTransitionHelper(),
-                                       unpopConfiguration: EZUnpopConfiguration? = EZUnpopConfiguration(),
                                        onShouldPopViewController: (()->(Bool))? = nil) {
         guard transitionCoordinatorHelper == nil else {
             return
@@ -43,7 +42,7 @@ extension UINavigationController {
         }
         transitionHelper.attachDismissGestures(to: self, onShouldPopViewController: onShouldPopViewController)
         
-        guard let unpopConfig = unpopConfiguration else {
+        guard let unpopConfig = transitionHelper.configuration.unpopConfiguration else {
             return
         }
         UINavigationController.classInit
