@@ -15,10 +15,10 @@ import Foundation
 public struct EZNavigationConfiguration {
     let unpopConfiguration: EZUnpopConfiguration?
     
-    public init(unpop: EZUnpopConfiguration? = EZUnpopConfiguration()) {
     /**
      * Creates and returns a new configuration
      */
+    public init(unpop: EZUnpopConfiguration? = nil) {
         self.unpopConfiguration = unpop
     }
 }
