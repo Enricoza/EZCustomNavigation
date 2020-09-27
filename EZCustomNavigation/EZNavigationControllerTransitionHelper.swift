@@ -67,6 +67,12 @@ public final class EZNavigationControllerTransitionHelper: NSObject {
         view.addGestureRecognizer(panGesture)
     }
     
+    /**
+     * Attaches the unpop gesture to the navigation controller
+     *
+     * - parameter navigationController: The navigationController to which the gesture can be attached
+     * - parameter onShouldPopViewController: The callback that informs that an unpop should happen. If the navigationController actually unpops the view controller it must return true to inform the helper of the ongoing unpop action.
+     */
     public func attachUnpopGesture(to navigationController: UINavigationController, onShouldUnpopViewController: @escaping (()->(Bool))) {
         guard let view = navigationController.view else {
             return
@@ -81,12 +87,15 @@ public final class EZNavigationControllerTransitionHelper: NSObject {
     }
     
     /**
-     * Detaches all the gestures from the navigation controllers view
+     * Detaches all the pop gestures from the navigation controller view
      */
     public func detachDismissGestures() {
         dismissGestureView = nil
     }
     
+    /**
+     * Detaches the unpop gesture from the navigation controller view
+     */
     public func detachUnpopGesture() {
         unpopGestureView = nil
     }

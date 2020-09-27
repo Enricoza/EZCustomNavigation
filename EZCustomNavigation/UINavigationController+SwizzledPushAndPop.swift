@@ -39,6 +39,7 @@ extension UINavigationController {
         swizzled_pushViewController(viewController, animated: animated)
         unpopStack?.clear()
     }
+    
     @objc func swizzled_popViewController(animated: Bool) -> UIViewController? {
         guard let vc = self.swizzled_popViewController(animated: animated) else {
             return nil

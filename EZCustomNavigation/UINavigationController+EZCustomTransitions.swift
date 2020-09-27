@@ -85,11 +85,25 @@ extension UINavigationController {
         }
     }
     
+    /**
+     * Called when the top view controller should be popped due to a pan gesture from the user.
+     *
+     * This method must return true if the view controller is actually popped.
+     * The default implementation always pops the view controller.
+     * You can override this method to add custom behaviors, but be sure to call it back on the super class.
+     */
     @objc open func onShouldPopViewController() -> Bool {
         self.popViewController(animated: true)
         return true
     }
     
+    /**
+     * Called when a previously popped view controller needs to be unpopped due to a pan gesture from the user.
+     *
+     * This method must return true if the view controller is actually unpopped.
+     * The default implementation always unpops a view controller if it's still in the unpopStack.
+     * You can override this method to add custom behaviors, but be sure to call it back on the super class.
+     */
     @objc open func onShouldUnpopViewController() -> Bool {
         guard let vc = unpopStack?.pop() else {
             return false
