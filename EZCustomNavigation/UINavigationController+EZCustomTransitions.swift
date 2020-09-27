@@ -119,6 +119,15 @@ extension UINavigationController {
         return true
     }
     
+    /**
+     * Clears the unpop stack.
+     *
+     * When this method is called all the view controllers inside the unpopStack will be removed and the the unpop behavior is disabled until another view controller is popped out of the navigation controller.
+     */
+    public func clearUnpopStack() {
+        unpopStack?.clear()
+    }
+    
     func onAnimationCompletion(completion: @escaping (Bool)->()) {
         guard let coordinator = transitionCoordinator else {
             return
