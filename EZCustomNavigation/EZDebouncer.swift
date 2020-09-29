@@ -30,11 +30,6 @@ class EZDebouncer {
     }
     
     @objc private func handleTimer(_ timer: Timer) {
-        if callback == nil {
-            NSLog("Debouncer timer fired, but callback was nil")
-        } else {
-            NSLog("Debouncer timer fired")
-        }
         callback?()
     }
     
