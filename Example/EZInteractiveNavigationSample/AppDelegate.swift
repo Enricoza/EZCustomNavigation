@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
+        EZNavigationConfiguration.defaultConfiguration = EZNavigationConfiguration(unpop: EZUnpopConfiguration(ttl: 30, stackDepth: 5))
         return true
     }
 

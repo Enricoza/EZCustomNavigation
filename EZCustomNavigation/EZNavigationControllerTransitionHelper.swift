@@ -40,7 +40,7 @@ public final class EZNavigationControllerTransitionHelper: NSObject {
     /**
      * Creates a TransitionHelper with a coordinator
      */
-    public init(transitionCoordinator: EZTransitionCoordinator = EZTransitionCoordinator(), configuration: EZNavigationConfiguration = EZNavigationConfiguration()) {
+    public init(transitionCoordinator: EZTransitionCoordinator = EZTransitionCoordinator(), configuration: EZNavigationConfiguration = EZNavigationConfiguration.defaultConfiguration) {
         self.coordinator = transitionCoordinator
         self.configuration = configuration
     }
