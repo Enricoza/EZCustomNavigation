@@ -10,7 +10,7 @@ import Foundation
 
 class EZSafeTimer {
     var timer: Timer?
-    var holder: RTILabTimerHolder
+    var holder: TimerHolder
     
     
     class func scheduledTimer(withTimeInterval timeInterval: TimeInterval, repeats: Bool, block: @escaping () ->()) -> EZSafeTimer {
@@ -22,12 +22,12 @@ class EZSafeTimer {
     }
     
     private init(timeInterval: TimeInterval, repeats: Bool, block: @escaping ()->()) {
-        holder = RTILabTimerHolder(block: block)
+        holder = TimerHolder(block: block)
         self.timer = Timer.scheduledTimer(timeInterval: timeInterval, target: holder, selector: #selector(holder.timerDidFire(_:)), userInfo: nil, repeats: repeats)
     }
     
     private init(timeInterval: TimeInterval, target: AnyObject, selector: Selector, userInfo: Any?, repeats: Bool) {
-        holder = RTILabTimerHolder(target:target, selector: selector)
+        holder = TimerHolder(target:target, selector: selector)
         self.timer = Timer.scheduledTimer(timeInterval: timeInterval, target: holder, selector: #selector(holder.timerDidFire(_:)), userInfo: userInfo, repeats: repeats)
     }
     
@@ -43,7 +43,7 @@ class EZSafeTimer {
 }
 
 
-class RTILabTimerHolder: NSObject {
+class TimerHolder: NSObject {
     private weak var target: AnyObject?
     private var selector: Selector?
     private var block: (()->())?
