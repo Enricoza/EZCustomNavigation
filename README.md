@@ -76,72 +76,6 @@ class CustomNavigationController: EZNavigationController {
 
 # Customization
 
-## Enable `Unpop`
-`Unpop` is disabled by default for 2 reasons:
-
-### Why I should NOT enable it
-
-- **Retrocompatibility**: previous users may not want this behavior enabled by simply upgrading from `1.0.0` to `1.1.0`
-- **Situational**: you don't always want to have this behavior enabled. You sometimes want to close a view controller and not allow for someone to reopen it by `unpop`ping
-- **Delay controllers deinit**: since view controllers are kept alive in an internal `unpopStack`, they may not be deallocated when you expect them to be. This means that memory is freed later and that other logic, connected to deinit, may happen later too. Extra care must be taken when you decide it's the case to enable `unpop` for one or all `EZNavigationControllers`.
-
-> As an example on why you SHOULD NOT use this, you can think of a Controller with a VideoPlayer. You expect that when you pop this ViewController out of the NavigationController it automatically releases the Player and therefore stops the playback. But if this ViewController is kept alive by the `unpopStack` (for some time or forever) playback may continue while the user is navigating the rest of the app. In this case, for example, you may need to stop the player on the `ViewController.willDisappear()` method, or something like that.
-
-### Why should I enable it
-Simply because sometimes the user is working on something and ends up popping the view controller by mistake.
-Maybe they were writing a very important text, or maybe they were editing a cool picture.
-
-Of course there are some safer ways to avoid a closure by mistake (think about a pop up message asking if you really want to lose all your work, for example) but maybe that is too much of bother to implement and maybe also to handle by the user.
-
-Also, sometimes the user just wants to come back, look at something from a previous screen, and then come back to what they were doing in the next screen. And this is really well done with the `unpop` behavior.
-
-In a few words, you just simply have a "re-do" option, once you get back to a previous view controller, to once again go to the latest one you just closed.
-
-### How can I enable it
-You can just enable it by default on all `EZNavigationController` by changing the defaultConfiguration in the AppDelegate:
-
-```
-EZNavigationConfiguration.defaultConfiguration = EZNavigationConfiguration(unpop: EZUnpopConfiguration(ttl: 30, stackDepth: 5))
-```
-
-If you do this, all `EZNavigationController` will have the `unpop` behavior enabled from now on.
-
----
-
-Or you can create your own NavigationController subclass that you want to use in the cases you need it and pass the configuration to the transition helper that you use to add the custom transitioning.
-
-```swift
-class MyNavigationImplementation: UINavigationController {
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        let config = EZNavigationConfiguration(unpop: EZUnpopConfiguration(ttl: 30, stackDepth: 5))
-        let helper = EZNavigationControllerTransitionHelper(transitionCoordinator: config)
-        addCustomTransitioning(helper)
-    }
-    
-    deinit {
-        removeCustomTransitioning()
-    }
-}
-```
-
-### EZNavigationConfiguration
-For now you can only configure the `unpop` behavior.
-If you pass the configuration you enable it.
-You can set 2 properties:
-- **ttl**: the amount of seconds the popped view controller are kept inside the `unpopStack`
-- **stackDepth**: the maximum amount of view controllers that can be stored in the stack and can potentially be `unpopped`
-
-TTL can also be nil, even if it's unadvised.
-If present it must be greater than 0. 
-StackDepth also needs to be greater than 0.
-The greater this parameters are, the more time and for more time the view controllers are kept in the stack.
-
-Therefore it's suggested to not use 
-arbitrarily large numbers.
-Choose the stackDepth and the TTL according to your usecase.
-
 ## Scroll Behavior
 
 In order to prevent a scroll from interfering with the `EZNavigationController` pan gesture (with the left bounce), every orizzontally scrollable UIScrollView is, by default, considered eligible for avoiding left bounce functionality if it's embedded inside an `EZNavigationController`.
@@ -233,9 +167,73 @@ class MyNavigationImplementation: UINavigationController {
 
 NB: be aware that the default impementation of `Scroll Behavior` won't work if you don't use the default `EZNavigationController`. In case you use some other `UINavigationController` subclass you must provide your own implementation of scroll behavior (but it shouldn't be hard following the default example).
 
+## Enable `Unpop` behavior
+`Unpop` is disabled by default for several reasons:
+
+- **Retrocompatibility**: previous users may not want this behavior enabled by simply upgrading from `1.0.0` to `1.1.0`
+- **It's situational**: you don't always want to have this behavior enabled. You sometimes want to close a view controller and not allow for someone to reopen it by `unpop`ping
+- **Delays controllers deallocation**: since view controllers are kept alive in an internal `unpopStack`, they may not be deallocated when you expect them to be. This means that memory is freed later and that other logic, connected to deinit, may happen later too. Extra care must be taken when you decide it's the case to enable `unpop` for one or all `EZNavigationControllers`.
+
+> As an example on why you SHOULD NOT use this, you can think of a Controller with a VideoPlayer. You expect that when you pop this ViewController out of the NavigationController it automatically releases the Player and therefore stops the playback. But if this ViewController is kept alive by the `unpopStack` (for some time or forever) playback may continue while the user is navigating the rest of the app. In this case, for example, you may need to stop the player on the `ViewController.willDisappear()` method, or something like that.
+
+### Why should I enable it
+Simply because sometimes the user is working on something and ends up popping the view controller by mistake.
+Maybe they were writing a very important text, or maybe they were editing a cool picture. Wouldn't be cool if they cold bring the view controller back after they dismissed it?
+
+Of course there are some safer ways to avoid a closure by mistake (think about a pop up message asking if you really want to lose all your work, for example) but maybe that is too much of a bother to implement and maybe also to handle by the user.
+
+Also, sometimes the user just wants to come back, look at something from a previous screen, and then come back to what they were doing in the other screen. And this is really well done with the `unpop` behavior.
+
+In a few words, you just simply have a "re-do" option, once you get back to a previous view controller, to once again go to the latest one you just closed.
+
+### How can I enable it
+You can just enable it by default on all `EZNavigationController` by changing the defaultConfiguration in the AppDelegate:
+
+```
+EZNavigationConfiguration.defaultConfiguration = EZNavigationConfiguration(unpop: EZUnpopConfiguration(ttl: 30, stackDepth: 5))
+```
+
+If you do this, all `EZNavigationController` will have the `unpop` behavior enabled from now on.
+
+---
+
+Or you can create your own NavigationController subclass that you want to use in the cases you need it and pass the configuration to the transition helper that you use to add the custom transitioning.
+
+```swift
+class MyNavigationImplementation: UINavigationController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let config = EZNavigationConfiguration(unpop: EZUnpopConfiguration(ttl: 30, stackDepth: 5))
+        let helper = EZNavigationControllerTransitionHelper(transitionCoordinator: config)
+        addCustomTransitioning(helper)
+    }
+    
+    deinit {
+        removeCustomTransitioning()
+    }
+}
+```
+
+### EZNavigationConfiguration
+For the time being, you can only configure the `unpop` behavior.
+If you pass the UnpopConfiguration you enable it.
+You can set 2 properties:
+- **ttl**: the amount of seconds the popped view controller are kept inside the `unpopStack`
+- **stackDepth**: the maximum amount of view controllers that can be stored in the stack and can potentially be `unpopped`
+
+TTL can also be nil, even if it's unadvised.
+If present it must be greater than 0. 
+StackDepth also needs to be greater than 0.
+The greater this parameters are, the more time and for more time the view controllers are kept in the stack.
+
+Therefore it's suggested to not use 
+arbitrarily large numbers.
+Choose the stackDepth and the TTL according to your usecase.
+
 # Contribution
 
-Feel free to open issues or make pull requesta if you see something is wrong or could be better
+Feel free to open issues or make pull requests if you see something is wrong or could be better
 
 # License
 
