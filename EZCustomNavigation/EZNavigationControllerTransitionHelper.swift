@@ -18,6 +18,7 @@ public final class EZNavigationControllerTransitionHelper: NSObject {
     private var edgeGesture: UIScreenEdgePanGestureRecognizer?
     private var panGesture: UIPanGestureRecognizer?
     private var onShouldPopViewController: (()->(Bool))?
+    private var enableFollowingGesturesWhileAnimating = true
     private weak var navigationControllerView: UIView? {
         didSet {
             detachDismissGestures(from: oldValue)
@@ -81,7 +82,8 @@ public final class EZNavigationControllerTransitionHelper: NSObject {
     }
     
     @objc private func handleSwipe(_ gestureRecognizer: UIScreenEdgePanGestureRecognizer) {
-        guard let gestureRecognizerView = gestureRecognizer.view else {
+        guard let gestureRecognizerView = gestureRecognizer.view,
+            enableFollowingGesturesWhileAnimating || !coordinator.onGoingAnimation else {
             return
         }
         
@@ -89,6 +91,7 @@ public final class EZNavigationControllerTransitionHelper: NSObject {
         
         switch gestureRecognizer.state {
         case .began:
+            enableFollowingGesturesWhileAnimating = true
             self.coordinator.onInteractiveTransitionEvent(.willStart)
             if self.onShouldPopViewController?() == false {
                 self.coordinator.onInteractiveTransitionEvent(.didCancel)
@@ -96,8 +99,10 @@ public final class EZNavigationControllerTransitionHelper: NSObject {
         case .changed:
             self.coordinator.onInteractiveTransitionEvent(.didUpdate(progress: percent))
         case .ended where percent > 0.3:
+            enableFollowingGesturesWhileAnimating = false
             self.coordinator.onInteractiveTransitionEvent(.didComplete)
         case .ended, .cancelled:
+            enableFollowingGesturesWhileAnimating = false
             self.coordinator.onInteractiveTransitionEvent(.didCancel)
         default: ()
         }
@@ -116,4 +121,12 @@ extension EZNavigationControllerTransitionHelper: UIGestureRecognizerDelegate {
         return false
     }
     
+}
+
+extension UIGestureRecognizer {
+    
+    func cancel() {
+        self.isEnabled = false
+        self.isEnabled = true
+    }
 }
