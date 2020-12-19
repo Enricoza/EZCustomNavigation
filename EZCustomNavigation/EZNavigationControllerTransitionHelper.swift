@@ -94,6 +94,7 @@ public final class EZNavigationControllerTransitionHelper: NSObject {
             enableFollowingGesturesWhileAnimating = true
             self.coordinator.onInteractiveTransitionEvent(.willStart)
             if self.onShouldPopViewController?() == false {
+                gestureRecognizer.cancel()
                 self.coordinator.onInteractiveTransitionEvent(.didCancel)
             }
         case .changed:

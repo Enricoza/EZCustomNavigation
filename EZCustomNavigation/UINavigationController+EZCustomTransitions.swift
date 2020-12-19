@@ -34,7 +34,11 @@ extension UINavigationController {
         transitionCoordinatorHelper = transitionHelper
         delegate = transitionHelper.navigationControllerDelegate
         let onShouldPopViewController = onShouldPopViewController ?? { [weak self] () -> (Bool) in
-            self?.popViewController(animated: true)
+            guard let self = self, self.viewControllers.count > 1 else {
+                return false
+                
+            }
+            self.popViewController(animated: true)
             return true
         }
         transitionHelper.attachDismissGestures(to: self, onShouldPopViewController: onShouldPopViewController)
