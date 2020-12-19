@@ -8,6 +8,7 @@
 
 import UIKit
 
+public typealias Animator = UIViewControllerAnimatedTransitioning & Animating
 
 /**
  * Coordinates animators and interactors
@@ -30,13 +31,16 @@ open class EZTransitionCoordinator: NSObject {
     
     
     private let interactionController: UIPercentDrivenInteractiveTransition
-    private let presentingAnimator: UIViewControllerAnimatedTransitioning
-    private let dismissingAnimator: UIViewControllerAnimatedTransitioning
+    private let presentingAnimator: Animator
+    private let dismissingAnimator: Animator
     private var onGoingInteractiveTransition = false
+    var onGoingAnimation: Bool {
+        return self.dismissingAnimator.isAnimating || self.presentingAnimator.isAnimating
+    }
 
     
-    public init(presentingAnimator: UIViewControllerAnimatedTransitioning = EZPushPopAnimator(presenting: true),
-                dismissingAnimator: UIViewControllerAnimatedTransitioning = EZPushPopAnimator(presenting: false),
+    public init(presentingAnimator: Animator = EZPushPopAnimator(presenting: true),
+                dismissingAnimator: Animator = EZPushPopAnimator(presenting: false),
                 interactionController: UIPercentDrivenInteractiveTransition = UIPercentDrivenInteractiveTransition()) {
         self.presentingAnimator = presentingAnimator
         self.dismissingAnimator = dismissingAnimator
