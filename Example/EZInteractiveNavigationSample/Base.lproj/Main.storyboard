@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rrx-rU-2yn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rrx-rU-2yn">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -24,7 +24,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="7B8-Ir-VXl" firstAttribute="centerX" secondItem="TcC-w8-DxG" secondAttribute="centerX" id="8Wm-aQ-onb"/>
                             <constraint firstItem="7B8-Ir-VXl" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Ck9-km-1EQ"/>
@@ -35,7 +35,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1047.8260869565217" y="137.94642857142856"/>
+            <point key="canvasLocation" x="1301" y="138"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="cp5-PO-fYc">
@@ -55,7 +55,7 @@
                                         <color key="highlightedColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="9SE-mK-XVd" secondAttribute="bottom" id="85b-jN-cui"/>
                                     <constraint firstItem="9SE-mK-XVd" firstAttribute="top" secondItem="Viw-t9-Omf" secondAttribute="top" id="UXZ-9e-lRO"/>
@@ -131,11 +131,11 @@
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O9c-bl-y4j">
                                                 <rect key="frame" x="0.0" y="58" width="290" height="271"/>
-                                                <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="obU-4b-Gax">
                                                 <rect key="frame" x="290" y="58" width="289.5" height="271"/>
-                                                <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </view>
                                         </subviews>
                                         <constraints>
@@ -233,15 +233,102 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="hEl-rU-rf8"/>
+                        <segue destination="fRn-YF-vGL" kind="relationship" relationship="rootViewController" id="g7I-3p-cuH"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0b1-ag-EzS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="246" y="138"/>
+            <point key="canvasLocation" x="-1529" y="138"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="6lG-o7-8RB">
+            <objects>
+                <viewController id="fRn-YF-vGL" customClass="ViewController" customModule="EZInteractiveNavigationSample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="54f-W4-krD">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Cf-2h-o5F">
+                                <rect key="frame" x="176.5" y="433" width="61" height="30"/>
+                                <state key="normal" title="Navigate"/>
+                                <connections>
+                                    <segue destination="YfM-lh-hdS" kind="show" id="LV5-II-b1M"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="5Cf-2h-o5F" firstAttribute="centerY" secondItem="54f-W4-krD" secondAttribute="centerY" id="H1x-va-ZKH"/>
+                            <constraint firstItem="5Cf-2h-o5F" firstAttribute="centerX" secondItem="EbJ-Bc-agz" secondAttribute="centerX" id="RLg-oV-4Vt"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="EbJ-Bc-agz"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="map-bm-oJ9"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tj8-Q4-4kx" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-778.26086956521749" y="137.94642857142856"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="qlc-Tw-Oyd">
+            <objects>
+                <viewController id="YfM-lh-hdS" customClass="ViewController" customModule="EZInteractiveNavigationSample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lkJ-Ri-6Zq">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="815-ML-uFT">
+                                <rect key="frame" x="176.5" y="433" width="61" height="30"/>
+                                <state key="normal" title="Navigate"/>
+                                <connections>
+                                    <segue destination="3HO-uN-A7U" kind="show" id="X3T-Bd-eoy"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="815-ML-uFT" firstAttribute="centerX" secondItem="DDQ-1y-VfO" secondAttribute="centerX" id="eWA-XJ-A5v"/>
+                            <constraint firstItem="815-ML-uFT" firstAttribute="centerY" secondItem="lkJ-Ri-6Zq" secondAttribute="centerY" id="tc3-pm-SAH"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="DDQ-1y-VfO"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="R1W-He-Tbc"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yRJ-az-Tf5" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-67" y="138"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="CM1-f7-7y3">
+            <objects>
+                <viewController id="3HO-uN-A7U" customClass="ViewController" customModule="EZInteractiveNavigationSample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hnb-iQ-nGG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z8O-cX-uMh">
+                                <rect key="frame" x="176.5" y="433" width="61" height="30"/>
+                                <state key="normal" title="Navigate"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="nQq-gd-wt8"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="z8O-cX-uMh" firstAttribute="centerY" secondItem="hnb-iQ-nGG" secondAttribute="centerY" id="YLU-4R-OLx"/>
+                            <constraint firstItem="z8O-cX-uMh" firstAttribute="centerX" secondItem="mRp-PZ-kSn" secondAttribute="centerX" id="e41-MK-y6L"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="mRp-PZ-kSn"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="yOn-P4-GKv"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tlf-tb-Lxi" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="561" y="138"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="hEl-rU-rf8"/>
+        <segue reference="nQq-gd-wt8"/>
     </inferredMetricsTieBreakers>
 </document>
