@@ -8,15 +8,19 @@
 
 import UIKit
 
+public protocol Animating {
+    var isAnimating: Bool { get }
+}
 
 /**
  * A simple custom implementation of the default animation of a navigation controller
  */
-public final class EZPushPopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+public final class EZPushPopAnimator: NSObject, UIViewControllerAnimatedTransitioning, Animating {
     
     let presenting: Bool
     let parallaxPercent: CGFloat
     let duration: TimeInterval
+    public private(set) var isAnimating: Bool = false
     
     /**
      * Creates the animator
@@ -58,7 +62,7 @@ public final class EZPushPopAnimator: NSObject, UIViewControllerAnimatedTransiti
                               width: toView.frame.width,
                               height: toView.frame.height)
 
-        
+        self.isAnimating = true
         UIView.animate(withDuration: duration,
                        delay: 0,
                        options: .curveEaseInOut,
@@ -71,6 +75,7 @@ public final class EZPushPopAnimator: NSObject, UIViewControllerAnimatedTransiti
         }) { (finished) in
             container.addSubview(toView)
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+            self.isAnimating = false
         }
     }
 }
