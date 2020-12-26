@@ -19,6 +19,9 @@ public final class EZNavigationControllerTransitionHelper: NSObject {
     private var unpopGesture: UIScreenEdgePanGestureRecognizer?
     private(set) var onShouldPopViewController: (()->(Bool))?
     private(set) var onShouldUnpopViewController: (()->(Bool))?
+
+    var enableFollowingGesturesWhileAnimating = true
+    
     private weak var dismissGestureView: UIView? {
         didSet {
             detachDismissGestures(from: oldValue)
@@ -133,4 +136,12 @@ extension EZNavigationControllerTransitionHelper: UIGestureRecognizerDelegate {
         return false
     }
     
+}
+
+extension UIGestureRecognizer {
+    
+    func cancel() {
+        self.isEnabled = false
+        self.isEnabled = true
+    }
 }

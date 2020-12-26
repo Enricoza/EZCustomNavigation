@@ -93,6 +93,10 @@ extension UINavigationController {
      * You can override this method to add custom behaviors, but be sure to call it back on the super class.
      */
     @objc open func onShouldPopViewController() -> Bool {
+        guard self.viewControllers.count > 1 else {
+            return false
+            
+        }
         self.popViewController(animated: true)
         return true
     }
