@@ -212,9 +212,7 @@ class MyUnpopEnabledNavigationImplementation: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let config = EZNavigationConfiguration(unpop: EZUnpopConfiguration(ttl: 30, stackDepth: 5))
-        let coordinator = EZTransitionCoordinator(presentingAnimator: EZPushPopAnimator(presenting: true),
-                                                  dismissingAnimator: EZPushPopAnimator(presenting: false),
-                                                  interactionController: UIPercentDrivenInteractiveTransition())
+        let coordinator = EZTransitionCoordinator()
         let helper = EZNavigationControllerTransitionHelper(transitionCoordinator: coordinator,
                                                             configuration: config)
         addCustomTransitioning(helper)
