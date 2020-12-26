@@ -1,6 +1,9 @@
 # EZCustomNavigation
 
-A customizable Navigation Controller that allows popping view controllers with pan gesture from center too. (Much like Instagram or Telegram do)
+A customizable Navigation Controller that allows: 
+
+- popping view controllers with pan gesture from center too. (Much like Instagram or Telegram do).
+- reopen a popped view controller with a right edge pan gesture. (Like the forward page action on Safari).
 
 # 0 lines of code
 
@@ -20,7 +23,9 @@ In sections of the viewControllers where there is an horizontal scrollView, the 
 ![GIF Pan-to-pop demo](img/pan-to-pop.gif)
 
 ### Right screen edge `Unpop` *(disabled by default)*
-After a `NavigationController` has popped a ViewController out of the stack, this ViewController can be `unpop`ed with a pan gesture from the right screen edge.
+After a `NavigationController` has popped a ViewController out of the stack, this ViewController can be `unpoped` with a pan gesture from the right screen edge.
+This is the same behavior you already have on safari when you go back to a page: you can go back forward to the page you just closed by swiping from the right screen edge.
+
 To `enable` this behavior you have to create an `EZNavigationConfiguration` with an `EZUnpopConfiguration` and either:
 
 - Pass it to a `EZNavigationControllerTransitionHelper` to make it use this configuarion for a specific NavigationController
@@ -33,7 +38,7 @@ To enable the `unpop` in one line:
 ```swift
 EZNavigationConfiguration.defaultConfiguration = EZNavigationConfiguration(unpop: EZUnpopConfiguration(ttl: 30, stackDepth: 5))
 ```
-You can put this line of code in `AppDelegate.application(_:didFinishLaunchingWithOptions:)` to enable the `unpop` on all `EZNavigationController`.
+You can put this line of code in `AppDelegate.application(_:didFinishLaunchingWithOptions:)` to enable the `unpop` on all `EZNavigationController` created after this line.
 
 # Installation
 
@@ -76,7 +81,7 @@ class CustomNavigationController: EZNavigationController {
 
 # Customization
 
-## Scroll Behavior
+## UIScrollView Behavior
 
 In order to prevent a scroll from interfering with the `EZNavigationController` pan gesture (with the left bounce), every orizzontally scrollable UIScrollView is, by default, considered eligible for avoiding left bounce functionality if it's embedded inside an `EZNavigationController`.
 
@@ -146,7 +151,7 @@ class MyNavigationImplementation: SomeOtherLibrariesImplementationOfUINavigation
 And here is provided an example with some custom animator
 
 ```swift
-class MyNavigationImplementation: UINavigationController {
+class MyCustomAnimatorNavigationImplementation: UINavigationController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -171,8 +176,8 @@ NB: be aware that the default impementation of `Scroll Behavior` won't work if y
 `Unpop` is disabled by default for several reasons:
 
 - **Retrocompatibility**: previous users may not want this behavior enabled by simply upgrading from `1.0.0` to `1.1.0`
-- **It's situational**: you don't always want to have this behavior enabled. You sometimes want to close a view controller and not allow for someone to reopen it by `unpop`ping
-- **Delays controllers deallocation**: since view controllers are kept alive in an internal `unpopStack`, they may not be deallocated when you expect them to be. This means that memory is freed later and that other logic, connected to deinit, may happen later too. Extra care must be taken when you decide it's the case to enable `unpop` for one or all `EZNavigationControllers`.
+- **It's situational**: you don't always want to have this behavior enabled. You sometimes want to close a view controller and not allow for someone to reopen it by `unpopping`
+- **Delays controllers deallocation**: since view controllers are kept alive in an internal `unpopStack`, they may not be deallocated when you expect them to be. This means that memory is freed later and that other logic, connected to deinit, may happen later too. Extra care must be taken when you decide it's the case to enable `unpop` for one or all `EZNavigationControllers`
 
 > As an example on why you SHOULD NOT use this, you can think of a Controller with a VideoPlayer. You expect that when you pop this ViewController out of the NavigationController it automatically releases the Player and therefore stops the playback. But if this ViewController is kept alive by the `unpopStack` (for some time or forever) playback may continue while the user is navigating the rest of the app. In this case, for example, you may need to stop the player on the `ViewController.willDisappear()` method, or something like that.
 
@@ -180,11 +185,13 @@ NB: be aware that the default impementation of `Scroll Behavior` won't work if y
 Simply because sometimes the user is working on something and ends up popping the view controller by mistake.
 Maybe they were writing a very important text, or maybe they were editing a cool picture. Wouldn't be cool if they cold bring the view controller back after they dismissed it?
 
-Of course there are some safer ways to avoid a closure by mistake (think about a pop up message asking if you really want to lose all your work, for example) but maybe that is too much of a bother to implement and maybe also to handle by the user.
+Every editing app for example has both an "undo" and "redo" operations. Even on Safari the user can pan from the left screen edge to undo a navigation operation (or go back) and pan from the right edge to redo a navigation operation (go forward).
+
+Of course there are some safer ways to avoid a closure by mistake (think about a pop up message asking if you really want to lose all your work, for example) but this is not what you always want (safari for example doesn't do this).
 
 Also, sometimes the user just wants to come back, look at something from a previous screen, and then come back to what they were doing in the other screen. And this is really well done with the `unpop` behavior.
 
-In a few words, you just simply have a "re-do" option, once you get back to a previous view controller, to once again go to the latest one you just closed.
+In a few words, you just simply have a "re-do" option, once you get back to a previous view controller, to once again go to the latest one you just closed, with all the unsaved work already there.
 
 ### How can I enable it
 You can just enable it by default on all `EZNavigationController` by changing the defaultConfiguration in the AppDelegate:
@@ -193,19 +200,23 @@ You can just enable it by default on all `EZNavigationController` by changing th
 EZNavigationConfiguration.defaultConfiguration = EZNavigationConfiguration(unpop: EZUnpopConfiguration(ttl: 30, stackDepth: 5))
 ```
 
-If you do this, all `EZNavigationController` will have the `unpop` behavior enabled from now on.
+If you do this, all `EZNavigationController` created after this configuration change will have the `unpop` behavior enabled.
 
 ---
 
 Or you can create your own NavigationController subclass that you want to use in the cases you need it and pass the configuration to the transition helper that you use to add the custom transitioning.
 
 ```swift
-class MyNavigationImplementation: UINavigationController {
+class MyUnpopEnabledNavigationImplementation: UINavigationController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let config = EZNavigationConfiguration(unpop: EZUnpopConfiguration(ttl: 30, stackDepth: 5))
-        let helper = EZNavigationControllerTransitionHelper(transitionCoordinator: config)
+        let coordinator = EZTransitionCoordinator(presentingAnimator: EZPushPopAnimator(presenting: true),
+                                                  dismissingAnimator: EZPushPopAnimator(presenting: false),
+                                                  interactionController: UIPercentDrivenInteractiveTransition())
+        let helper = EZNavigationControllerTransitionHelper(transitionCoordinator: coordinator,
+                                                            configuration: config)
         addCustomTransitioning(helper)
     }
     
