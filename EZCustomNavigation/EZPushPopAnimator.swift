@@ -8,14 +8,17 @@
 
 import UIKit
 
-public protocol Animating {
+/**
+ * A protocol used to inform on whether an animation is ongoing or not.
+ */
+public protocol EZAnimating {
     var isAnimating: Bool { get }
 }
 
 /**
  * A simple custom implementation of the default animation of a navigation controller
  */
-public final class EZPushPopAnimator: NSObject, UIViewControllerAnimatedTransitioning, Animating {
+public final class EZPushPopAnimator: NSObject, UIViewControllerAnimatedTransitioning, EZAnimating {
     
     let presenting: Bool
     let parallaxPercent: CGFloat
