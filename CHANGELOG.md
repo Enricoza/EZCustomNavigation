@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.1.1
+A patch that includes some fixes and improvements to the `pan-to-pop` gesture interoperability with other gestures.
+
+### Changed
+
+- `pan-to-pop` gesture now requires `maximumNumberOfTouches` to be 1.
+- `pan-to-pop` gesture won't start if the direction of the pan is wrong
+
+### Fixed
+
+- A bug that made really hard to use the delete gesture of table view cells ([5](https://github.com/Enricoza/EZCustomNavigation/issues/5)).
+
 ## v1.1.0
 A release that includes the first implementation of the `Unpop` behavior *(disabled by default)* and some minor fixes.
 
