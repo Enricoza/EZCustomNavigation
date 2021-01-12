@@ -27,4 +27,16 @@ class TableDemo: UITableViewController {
             n -= 1
         }
     }
+    
+    // TODO: Find a way to make this work
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        return UISwipeActionsConfiguration(actions: [
+            UIContextualAction(style: UIContextualAction.Style.normal,
+                               title: "Action",
+                               handler: { (action, view, completion) in
+                                completion(true)
+            })
+        ])
+    }
+    
 }

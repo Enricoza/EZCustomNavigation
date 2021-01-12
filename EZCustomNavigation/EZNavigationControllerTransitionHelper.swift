@@ -128,7 +128,9 @@ public final class EZNavigationControllerTransitionHelper: NSObject {
 
 extension EZNavigationControllerTransitionHelper: UIGestureRecognizerDelegate {
     
-    
+    /**
+     * Avoid non-right pan gesture to begin a `pan-to-pop` gesture
+     */
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if let gesture = self.panGesture,
             gesture == gestureRecognizer,

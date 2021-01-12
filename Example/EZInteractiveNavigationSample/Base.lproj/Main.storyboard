@@ -25,8 +25,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SHx-At-TBO">
-                                <rect key="frame" x="189.5" y="522" width="35" height="30"/>
-                                <state key="normal" title="table"/>
+                                <rect key="frame" x="178" y="522" width="58" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Table"/>
                                 <connections>
                                     <segue destination="VRu-xG-AL2" kind="show" id="FSr-TD-NK2"/>
                                 </connections>
