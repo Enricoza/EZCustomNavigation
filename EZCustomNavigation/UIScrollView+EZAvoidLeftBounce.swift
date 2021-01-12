@@ -51,14 +51,11 @@ extension UIScrollView {
     }
     
     private func isLeftBounceGesture(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if frame.size.width < self.contentSize.width,
-            let panGesture = gestureRecognizer as? UIPanGestureRecognizer {
-            let velocity = panGesture.velocity(in: gestureRecognizer.view)
-            if self.contentOffset.x == 0,
-                velocity.x > 0,
-                abs(velocity.x) > abs(velocity.y) {
-                return true
-            }
+        if let panGesture = gestureRecognizer as? UIPanGestureRecognizer,
+            frame.size.width < self.contentSize.width,
+            self.contentOffset.x == 0,
+            panGesture.currentMainDirection() == .right {
+            return true
         }
         return false
     }
