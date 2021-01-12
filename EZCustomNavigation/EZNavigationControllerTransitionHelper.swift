@@ -66,6 +66,7 @@ public final class EZNavigationControllerTransitionHelper: NSObject {
         edgeSwipeGestureRecognizer.delegate = self
         self.popGesture = edgeSwipeGestureRecognizer
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePopSwipe(_:)))
+        panGesture.delegate = self
         self.panGesture = panGesture
         view.addGestureRecognizer(panGesture)
     }
@@ -125,6 +126,16 @@ public final class EZNavigationControllerTransitionHelper: NSObject {
 }
 
 extension EZNavigationControllerTransitionHelper: UIGestureRecognizerDelegate {
+    
+    
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if let gesture = self.panGesture,
+            gesture == gestureRecognizer,
+            gesture.currentMainDirection() != .right {
+            return false
+        }
+        return true
+    }
     
     /**
      * Force the edge gesture to be prioritized 
