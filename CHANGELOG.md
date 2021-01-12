@@ -10,7 +10,11 @@ A patch that includes some fixes and improvements to the `pan-to-pop` gesture in
 
 ### Fixed
 
-- A bug that made really hard to use the delete gesture of table view cells ([5](https://github.com/Enricoza/EZCustomNavigation/issues/5)).
+- A bug that made really hard to use the delete gesture of table view cells ([#5](https://github.com/Enricoza/EZCustomNavigation/issues/5)).
+
+### Known Issues
+
+- Currently is not possible to activate leadingSwipeActions on UITableViews ([#6](https://github.com/Enricoza/EZCustomNavigation/issues/6))
 
 ## v1.1.0
 A release that includes the first implementation of the `Unpop` behavior *(disabled by default)* and some minor fixes.
@@ -41,4 +45,4 @@ Initial release with the `Pan-To-Pop` behavior.
 
 ### Known Issues
 
-- Glitch when fast popping multiple view controllers ([3](https://github.com/Enricoza/EZCustomNavigation/issues/3)).
+- Glitch when fast popping multiple view controllers ([#3](https://github.com/Enricoza/EZCustomNavigation/issues/3)).

@@ -13,7 +13,7 @@ target 'EZInteractiveNavigationSample' do
 
 
   if current_branch == 'master'
-    pod 'EZCustomNavigation', '1.0.0'
+    pod 'EZCustomNavigation', '1.1.1'
     else
     pod 'EZCustomNavigation', :path => '../EZCustomNavigation.podspec'
   end
