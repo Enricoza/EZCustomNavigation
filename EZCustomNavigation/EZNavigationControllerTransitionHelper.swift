@@ -66,6 +66,7 @@ public final class EZNavigationControllerTransitionHelper: NSObject {
         edgeSwipeGestureRecognizer.delegate = self
         self.popGesture = edgeSwipeGestureRecognizer
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePopSwipe(_:)))
+        panGesture.maximumNumberOfTouches = 1
         panGesture.delegate = self
         self.panGesture = panGesture
         view.addGestureRecognizer(panGesture)
