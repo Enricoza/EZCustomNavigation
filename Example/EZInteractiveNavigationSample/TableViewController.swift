@@ -19,17 +19,26 @@ class TableDemo: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
         cell.textLabel?.text = "\(indexPath.row)"
+            + (self.shouldShowLeftActions(for: indexPath) ? ", left actions" : "")
         return cell
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            n -= 1
+            if indexPath.row == n - 1 {
+                n -= 1
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
         }
+    }
+    
+    private func shouldShowLeftActions(for indexPath: IndexPath) -> Bool {
+        return indexPath.row % 2 == 0
     }
     
     // TODO: Find a way to make this work
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard self.shouldShowLeftActions(for: indexPath) else { return nil }
         return UISwipeActionsConfiguration(actions: [
             UIContextualAction(style: UIContextualAction.Style.normal,
                                title: "Action",
