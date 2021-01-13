@@ -36,7 +36,6 @@ class TableDemo: UITableViewController {
         return indexPath.row % 2 == 0
     }
     
-    // TODO: Find a way to make this work
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard self.shouldShowLeftActions(for: indexPath) else { return nil }
         return UISwipeActionsConfiguration(actions: [

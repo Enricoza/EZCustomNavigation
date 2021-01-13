@@ -151,9 +151,11 @@ extension EZNavigationControllerTransitionHelper: UIGestureRecognizerDelegate {
     }
     
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer == self.panGesture && ![self.unpopGesture, self.popGesture].contains(otherGestureRecognizer) {
-            let classname = "\(type(of: otherGestureRecognizer))"
-            return classname != "UIScrollViewPanGestureRecognizer"
+        if gestureRecognizer == self.panGesture && ![self.unpopGesture, self.popGesture, ].contains(otherGestureRecognizer) {
+            if let scrollView = otherGestureRecognizer.view as? UIScrollView, scrollView.panGestureRecognizer == otherGestureRecognizer {
+                return false
+            }
+            return true
         }
         return false
     }
