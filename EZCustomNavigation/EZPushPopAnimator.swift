@@ -51,7 +51,7 @@ public final class EZPushPopAnimator: NSObject, UIViewControllerAnimatedTransiti
     public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let fromView = transitionContext.view(forKey: .from) else { return }
         guard let toView = transitionContext.view(forKey: .to) else { return }
-
+        guard let toVC = transitionContext.viewController(forKey: .to) else { return }
         let duration = transitionDuration(using: transitionContext)
 
         let container = transitionContext.containerView
@@ -70,10 +70,7 @@ public final class EZPushPopAnimator: NSObject, UIViewControllerAnimatedTransiti
                        delay: 0,
                        options: transitionContext.isInteractive ? .curveLinear : .curveEaseInOut,
                        animations: {
-                        toView.frame = CGRect(x: fromView.frame.origin.x,
-                                              y: toView.frame.origin.y,
-                                              width: toView.frame.size.width,
-                                              height: toView.frame.size.height)
+                        toView.frame = transitionContext.finalFrame(for: toVC)
                         fromView.frame = CGRect(x: self.presenting ? -fromView.frame.width*self.parallaxPercent : fromView.frame.width,
                                                 y: fromView.frame.origin.y,
                                     width: fromView.frame.width,
