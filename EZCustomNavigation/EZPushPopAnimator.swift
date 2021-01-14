@@ -68,7 +68,7 @@ public final class EZPushPopAnimator: NSObject, UIViewControllerAnimatedTransiti
         self.isAnimating = true
         UIView.animate(withDuration: duration,
                        delay: 0,
-                       options: .curveLinear,
+                       options: transitionContext.isInteractive ? .curveLinear : .curveEaseInOut,
                        animations: {
                         toView.frame = fromView.frame
                         fromView.frame = CGRect(x: self.presenting ? -fromView.frame.width*self.parallaxPercent : fromView.frame.width,
