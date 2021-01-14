@@ -30,12 +30,12 @@ public final class EZPushPopAnimator: NSObject, UIViewControllerAnimatedTransiti
      *
      * - parameter presenting: If this animator handles presenting or dismissing animations
      * - parameter parallaxPercent: The percentage of the parallax effect to the back view controller. 0 means it's still, 1 means it moves side by side with the top one. Defaults to 0.25
-     * - parameter duration: The duration of the animation. Default to `UINavigationController.hideShowBarDuration`
+     * - parameter duration: The duration of the animation. Default to 0.33
      */
-    public init(presenting: Bool, parallaxPercent: CGFloat = 0.25, duration: TimeInterval? = nil) {
+    public init(presenting: Bool, parallaxPercent: CGFloat = 0.25, duration: TimeInterval = 0.33) {
         self.presenting = presenting
         self.parallaxPercent = parallaxPercent
-        self.duration = duration ?? TimeInterval(UINavigationController.hideShowBarDuration)
+        self.duration = duration
     }
 
     /**
@@ -68,7 +68,7 @@ public final class EZPushPopAnimator: NSObject, UIViewControllerAnimatedTransiti
         self.isAnimating = true
         UIView.animate(withDuration: duration,
                        delay: 0,
-                       options: transitionContext.isInteractive ? .curveLinear : .curveEaseInOut,
+                       options: transitionContext.isInteractive ? .curveLinear : .curveEaseOut,
                        animations: {
                         toView.frame = transitionContext.finalFrame(for: toVC)
                         fromView.frame = CGRect(x: self.presenting ? -fromView.frame.width*self.parallaxPercent : fromView.frame.width,
