@@ -15,6 +15,7 @@
 		152C39C023643CE10034C411 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 152C39BF23643CE10034C411 /* Assets.xcassets */; };
 		152C39C323643CE10034C411 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 152C39C123643CE10034C411 /* LaunchScreen.storyboard */; };
 		152C39CF2364628B0034C411 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152C39CE2364628B0034C411 /* SecondViewController.swift */; };
+		15C7B9D525B0B9AD00EE431E /* HidesBottomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C7B9D425B0B9AD00EE431E /* HidesBottomViewController.swift */; };
 		3637CC3525AD54A000F075DD /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3637CC3425AD54A000F075DD /* TableViewController.swift */; };
 		4EEB710AC8EB7F257A6BBD31 /* Pods_EZInteractiveNavigationSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA970015DD0777F4ADAA874E /* Pods_EZInteractiveNavigationSample.framework */; };
 /* End PBXBuildFile section */
@@ -30,6 +31,7 @@
 		152C39C223643CE10034C411 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		152C39C423643CE10034C411 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		152C39CE2364628B0034C411 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		15C7B9D425B0B9AD00EE431E /* HidesBottomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HidesBottomViewController.swift; sourceTree = "<group>"; };
 		3637CC3425AD54A000F075DD /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		5629904CD9E31B222319A951 /* Pods-EZInteractiveNavigationSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EZInteractiveNavigationSample.debug.xcconfig"; path = "Target Support Files/Pods-EZInteractiveNavigationSample/Pods-EZInteractiveNavigationSample.debug.xcconfig"; sourceTree = "<group>"; };
 		B0AC974BEDD44FD51C66FA86 /* Pods-EZInteractiveNavigationSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EZInteractiveNavigationSample.release.xcconfig"; path = "Target Support Files/Pods-EZInteractiveNavigationSample/Pods-EZInteractiveNavigationSample.release.xcconfig"; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 				152C39C423643CE10034C411 /* Info.plist */,
 				152C39CE2364628B0034C411 /* SecondViewController.swift */,
 				152B865A23659DD50099423A /* ChildNavigationController.swift */,
+				15C7B9D425B0B9AD00EE431E /* HidesBottomViewController.swift */,
 				3637CC3425AD54A000F075DD /* TableViewController.swift */,
 			);
 			path = EZInteractiveNavigationSample;
@@ -219,6 +222,7 @@
 				3637CC3525AD54A000F075DD /* TableViewController.swift in Sources */,
 				152C39BB23643CE00034C411 /* ViewController.swift in Sources */,
 				152B865B23659DD50099423A /* ChildNavigationController.swift in Sources */,
+				15C7B9D525B0B9AD00EE431E /* HidesBottomViewController.swift in Sources */,
 				152C39B723643CE00034C411 /* AppDelegate.swift in Sources */,
 				152C39B923643CE00034C411 /* SceneDelegate.swift in Sources */,
 			);
