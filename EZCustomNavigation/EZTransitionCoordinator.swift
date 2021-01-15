@@ -48,7 +48,7 @@ open class EZTransitionCoordinator: NSObject {
         self.presentingAnimator = presentingAnimator
         self.dismissingAnimator = dismissingAnimator
         self.interactionController = interactionController
-        interactionController.completionSpeed = 0.5
+        interactionController.completionCurve = .easeInOut
     }
     
     open func onInteractiveTransitionEvent(_ event: InteractiveTransitionEvent) {
