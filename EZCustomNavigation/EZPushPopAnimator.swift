@@ -58,17 +58,20 @@ public final class EZPushPopAnimator: NSObject, UIViewControllerAnimatedTransiti
         let dimmingView = UIView(frame: container.frame)
         dimmingView.backgroundColor = UIColor.black
         let maxDimmingViewAlpha: CGFloat = 0.1
+        let startingX: CGFloat
         if presenting {
             container.addSubview(dimmingView)
             container.addSubview(toView)
             dimmingView.alpha = 0
+            startingX = toView.frame.width
         } else {
             container.insertSubview(toView, belowSubview: fromView)
             container.insertSubview(dimmingView, belowSubview: fromView)
             dimmingView.alpha = maxDimmingViewAlpha
+            startingX = -toView.frame.width*self.parallaxPercent
             
         }
-        toView.frame = CGRect(x: presenting ? toView.frame.width : -toView.frame.width*self.parallaxPercent,
+        toView.frame = CGRect(x: startingX,
                               y: toView.frame.origin.y,
                               width: toView.frame.width,
                               height: toView.frame.height)
