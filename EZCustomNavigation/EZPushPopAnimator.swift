@@ -66,19 +66,38 @@ public final class EZPushPopAnimator: NSObject, UIViewControllerAnimatedTransiti
                               height: toView.frame.height)
 
         self.isAnimating = true
-        UIView.animate(withDuration: duration,
-                       delay: 0,
-                       options: transitionContext.isInteractive ? .curveLinear : .curveEaseOut,
-                       animations: {
-                        toView.frame = transitionContext.finalFrame(for: toVC)
-                        fromView.frame = CGRect(x: self.presenting ? -fromView.frame.width*self.parallaxPercent : fromView.frame.width,
-                                                y: fromView.frame.origin.y,
+        let animationBlock = {
+            let finalX: CGFloat
+            if (self.presenting) {
+                finalX = -fromView.frame.width*self.parallaxPercent
+            } else {
+                finalX = fromView.frame.width
+            }
+            toView.frame = transitionContext.finalFrame(for: toVC)
+            fromView.frame = CGRect(x: finalX,
+                                    y: fromView.frame.origin.y,
                                     width: fromView.frame.width,
                                     height: fromView.frame.height)
-        }) { (finished) in
+        }
+        let completionBlock = {(finished: Bool) in
             container.addSubview(toView)
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
             self.isAnimating = false
         }
+        
+        if (transitionContext.isInteractive) {
+            UIView.animate(withDuration: duration,
+                           delay: 0,
+                           options: .curveLinear,
+                           animations: animationBlock,
+                           completion: completionBlock)
+        } else {
+            UIView.animateKeyframes(withDuration: duration,
+                                    delay: 0,
+                                    options: .calculationModeCubic,
+                                    animations: animationBlock,
+                                    completion: completionBlock)
+        }
+        
     }
 }
