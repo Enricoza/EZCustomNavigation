@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
   spec.name         = 'EZCustomNavigation'
   spec.author       = { 'Enrico Zannini' => 'enricozannini93@gmail.com' }
-  spec.version      = '1.1.1'
+  spec.version      = '1.1.2'
   spec.summary      = 'Navigation animation and transition with pan gesture'
   spec.license      = { :type => 'MIT', :file => 'LICENSE.txt' }
   spec.platform = :ios

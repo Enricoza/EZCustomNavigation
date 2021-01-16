@@ -47,7 +47,7 @@ You can put this line of code in `AppDelegate.application(_:didFinishLaunchingWi
 Just add the `EZCustomNavigation` dependency with the version you want in the podfile:
 
 ```
-pod 'EZCustomNavigation', '1.1.1'
+pod 'EZCustomNavigation', '1.1.2'
 ```
 
 # Usage
