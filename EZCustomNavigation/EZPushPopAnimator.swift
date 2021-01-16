@@ -55,10 +55,18 @@ public final class EZPushPopAnimator: NSObject, UIViewControllerAnimatedTransiti
         let duration = transitionDuration(using: transitionContext)
 
         let container = transitionContext.containerView
+        let dimmingView = UIView(frame: container.frame)
+        dimmingView.backgroundColor = UIColor.black
+        let maxDimmingViewAlpha: CGFloat = 0.1
         if presenting {
+            container.addSubview(dimmingView)
             container.addSubview(toView)
+            dimmingView.alpha = 0
         } else {
             container.insertSubview(toView, belowSubview: fromView)
+            container.insertSubview(dimmingView, belowSubview: fromView)
+            dimmingView.alpha = maxDimmingViewAlpha
+            
         }
         toView.frame = CGRect(x: presenting ? toView.frame.width : -toView.frame.width*self.parallaxPercent,
                               y: toView.frame.origin.y,
@@ -70,8 +78,10 @@ public final class EZPushPopAnimator: NSObject, UIViewControllerAnimatedTransiti
             let finalX: CGFloat
             if (self.presenting) {
                 finalX = -fromView.frame.width*self.parallaxPercent
+                dimmingView.alpha = maxDimmingViewAlpha
             } else {
                 finalX = fromView.frame.width
+                dimmingView.alpha = 0
             }
             toView.frame = transitionContext.finalFrame(for: toVC)
             fromView.frame = CGRect(x: finalX,
@@ -81,6 +91,7 @@ public final class EZPushPopAnimator: NSObject, UIViewControllerAnimatedTransiti
         }
         let completionBlock = {(finished: Bool) in
             container.addSubview(toView)
+            dimmingView.removeFromSuperview()
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
             self.isAnimating = false
         }
