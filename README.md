@@ -1,6 +1,6 @@
-# EZCustomNavigation
+![Logo](img/Logo.PNG)
 
-A customizable Navigation Controller that allows: 
+Easy Custom Navigation Controller that allows: 
 
 - popping view controllers with pan gesture from center too. (Much like Instagram or Telegram do).
 - reopen a popped view controller with a right edge pan gesture. (Like the forward page action on Safari).
