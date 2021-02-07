@@ -1,5 +1,4 @@
 ![Logo](img/Logo.PNG)
-
 Easy Custom Navigation Controller that allows: 
 
 - popping view controllers with pan gesture from center too. (Much like Instagram or Telegram do).
