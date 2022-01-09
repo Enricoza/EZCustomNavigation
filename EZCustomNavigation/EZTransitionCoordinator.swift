@@ -27,9 +27,9 @@ open class EZTransitionCoordinator: NSObject {
         /// On percent update
         case didUpdate(progress: CGFloat)
         /// On transition complete
-        case didComplete
+        case didComplete(progress: CGFloat, velocity: CGFloat)
         /// On transition cancel
-        case didCancel
+        case didCancel(progress: CGFloat, velocity: CGFloat)
     }
     
     
@@ -37,6 +37,7 @@ open class EZTransitionCoordinator: NSObject {
     private let presentingAnimator: EZAnimator
     private let dismissingAnimator: EZAnimator
     private var onGoingInteractiveTransition = false
+    private let speedCalculator: SpeedCalculator
     var onGoingAnimation: Bool {
         return self.dismissingAnimator.isAnimating || self.presentingAnimator.isAnimating
     }
@@ -48,6 +49,7 @@ open class EZTransitionCoordinator: NSObject {
         self.presentingAnimator = presentingAnimator
         self.dismissingAnimator = dismissingAnimator
         self.interactionController = interactionController
+        self.speedCalculator = SpeedCalculator(duration: interactionController.duration)
         interactionController.completionCurve = .easeInOut
     }
     
@@ -57,16 +59,16 @@ open class EZTransitionCoordinator: NSObject {
             self.onGoingInteractiveTransition = true
         case .didUpdate(let progress):
             self.interactionController.update(progress)
-        case .didComplete:
+        case .didComplete(let progress, let velocity):
+            self.interactionController.completionSpeed = speedCalculator.completionSpeed(progress: progress, velocity: velocity)
             self.interactionController.finish()
             self.onGoingInteractiveTransition = false
-        case .didCancel:
+        case .didCancel(let progress, let velocity):
+            self.interactionController.completionSpeed = speedCalculator.completionSpeed(progress: progress, velocity: velocity)
             self.interactionController.cancel()
             self.onGoingInteractiveTransition = false
         }
-        
     }
-
 }
 
 

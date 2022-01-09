@@ -24,29 +24,35 @@ extension EZNavigationControllerTransitionHelper {
         }
         
         let percent = gestureRecognizer.translation(in: gestureRecognizerView).x / gestureRecognizerView.bounds.size.width
+        let velocity = gestureRecognizer.velocity(in: gestureRecognizerView).x
         onInteractiveGestureRecongnizerState(gestureRecognizer.state,
                                              percent: forPop ? percent : -percent,
+                                             velocity: forPop ? velocity : -velocity,
                                              onShouldActivate: forPop ? self.onShouldPopViewController : self.onShouldUnpopViewController)
         
     }
     
-    private func onInteractiveGestureRecongnizerState(_ state: UIGestureRecognizer.State, percent: CGFloat, onShouldActivate: (() -> (Bool))?) {
+    private func onInteractiveGestureRecongnizerState(_ state: UIGestureRecognizer.State, percent: CGFloat, velocity: CGFloat, onShouldActivate: (() -> (Bool))?) {
         switch state {
         case .began:
             enableFollowingGesturesWhileAnimating = true
             self.coordinator.onInteractiveTransitionEvent(.willStart)
             if onShouldActivate?() == false {
-                self.coordinator.onInteractiveTransitionEvent(.didCancel)
+                self.coordinator.onInteractiveTransitionEvent(.didCancel(progress: percent, velocity: velocity))
             }
         case .changed:
             self.coordinator.onInteractiveTransitionEvent(.didUpdate(progress: percent))
-        case .ended where percent > 0.3:
+        case .ended where (isTranslationSlow(velocity: velocity) && percent > 0.66) || velocity > Consatants.translationVelocityLimit:
             enableFollowingGesturesWhileAnimating = false
-            self.coordinator.onInteractiveTransitionEvent(.didComplete)
+            self.coordinator.onInteractiveTransitionEvent(.didComplete(progress: percent, velocity: velocity))
         case .ended, .cancelled:
             enableFollowingGesturesWhileAnimating = false
-            self.coordinator.onInteractiveTransitionEvent(.didCancel)
+            self.coordinator.onInteractiveTransitionEvent(.didCancel(progress: percent, velocity: velocity))
         default: ()
         }
+    }
+    
+    private func isTranslationSlow(velocity: CGFloat) -> Bool {
+        Consatants.translationVelocityRange.contains(velocity)
     }
 }
