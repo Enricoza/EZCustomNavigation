@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.2.0
+Improve handling of pan gesture, matching the feeling of default `UINavigationController`.
+
+### Changed
+
+- `pan-to-pop` animation completion/cancellation is now decided on gesture `velocity` first and, only in case of low velocity, on progress percentage ([#12](https://github.com/Enricoza/EZCustomNavigation/issues/12)).
+- `pan-to-pop` animation `completionSpeed` is increased based on gesture velocity at the end of the gesture itself.
+
 ## v1.1.2
 A patch that includes some fixes and improvements to the default `EZPushPopAnimator` to make it more similar to the default Navigation Controller animator.
 
