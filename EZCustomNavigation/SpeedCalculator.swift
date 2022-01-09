@@ -15,11 +15,11 @@ struct SpeedCalculator {
     }
     
     private func velocityFactor(velocity: CGFloat) -> CGFloat {
-        let factor = velocity / 300
-        return min(max(1, abs(factor)),3)
+        let factor = velocity / Constants.Velocity.scale
+        return min(max(Constants.Velocity.factorLimitBottom, abs(factor)), Constants.Velocity.factorLimitTop)
     }
     
     private func defaultCompletionSpeed(progress: CGFloat) -> CGFloat {
-        (1 - abs(progress))
+        1
     }
 }

@@ -42,7 +42,9 @@ extension EZNavigationControllerTransitionHelper {
             }
         case .changed:
             self.coordinator.onInteractiveTransitionEvent(.didUpdate(progress: percent))
-        case .ended where (isTranslationSlow(velocity: velocity) && percent > 0.66) || velocity > Consatants.translationVelocityLimit:
+        case .ended where
+                (isTranslationSlow(velocity: velocity) && percent > Constants.percentTranslationLimit)
+                || velocity > Constants.Velocity.staleLimit:
             enableFollowingGesturesWhileAnimating = false
             self.coordinator.onInteractiveTransitionEvent(.didComplete(progress: percent, velocity: velocity))
         case .ended, .cancelled:
@@ -53,6 +55,6 @@ extension EZNavigationControllerTransitionHelper {
     }
     
     private func isTranslationSlow(velocity: CGFloat) -> Bool {
-        Consatants.translationVelocityRange.contains(velocity)
+        Constants.Velocity.range.contains(velocity)
     }
 }
